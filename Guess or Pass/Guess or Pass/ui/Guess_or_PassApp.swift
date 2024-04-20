@@ -20,7 +20,7 @@ struct Guess_or_PassApp: App {
                         case .welcome:
                             WelcomeScreen()
                         case .home:
-                            HomeScreen()
+                            HomeScreen().navigationBarBackButtonHidden(true)
                         }
                     }
             }

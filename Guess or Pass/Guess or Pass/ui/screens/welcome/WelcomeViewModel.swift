@@ -19,5 +19,8 @@ class WelcomeViewModel: ObservableObject {
     func saveName() {
         userRepository.saveUserName(nameInput)
     }
+    func saveUserAvatar(imageData: Data){
+        // TODO
+    }
 }
 
