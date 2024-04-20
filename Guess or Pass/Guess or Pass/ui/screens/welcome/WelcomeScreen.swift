@@ -14,6 +14,7 @@ struct WelcomeScreen: View {
     @State private var selectedImage: UIImage?
     @State private var isImagePickerPresented = false
     @State private var selectedAvatarIndex: Int = 0
+    @State private var isAlertPresented = false
     
     var body: some View {
         VStack {
@@ -44,7 +45,7 @@ struct WelcomeScreen: View {
                     .padding()
             }
             
-            Text("Select a different avatar:")
+            Text("Choose a different avatar:")
             
             HStack {
                 ForEach(0..<3) { index in
@@ -63,7 +64,7 @@ struct WelcomeScreen: View {
                     self.isImagePickerPresented.toggle()
                     selectedAvatarIndex = -1
                 }) {
-                    Text("Choose Custom Avatar")
+                    Text("Choose Custom")
                         .foregroundColor(.white)
                         .padding()
                         .background(Color.blue)
@@ -73,12 +74,15 @@ struct WelcomeScreen: View {
                 Spacer()
             }
             
+            // Let's play button
             Button("Let's play") {
-                if let image = selectedImage {
-                    saveImageToLocalStorage(image: image)
+                if viewModel.nameInput.isEmpty || selectedImage == nil {
+                    isAlertPresented = true
+                } else {
+                    saveImageToLocalStorage(image: selectedImage!)
+                    viewModel.saveUserName()
+                    router.navigate(to: .home)
                 }
-                viewModel.saveName()
-                router.navigate(to: .home)
             }
             .padding()
             .background(Color.green)
@@ -92,16 +96,19 @@ struct WelcomeScreen: View {
         .sheet(isPresented: $isImagePickerPresented) {
             ImagePicker(selectedImage: self.$selectedImage, isPresented: self.$isImagePickerPresented)
         }
+        .alert(isPresented: $isAlertPresented) {
+            Alert(title: Text("Please provide input"), message: Text("Name and/or avatar selection are/is missing."), dismissButton: .default(Text("OK")))
+        }
     }
     
     func saveImageToLocalStorage(image: UIImage) {
         if let imageData = image.pngData() {
             viewModel.saveUserAvatar(imageData: imageData)
-            self.selectedImage = image
         }
     }
 }
 
+// AvatarImage with border to indicate selection
 struct AvatarImage: View {
     var systemName: String
     var isSelected: Bool

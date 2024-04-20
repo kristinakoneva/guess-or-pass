@@ -10,4 +10,6 @@ import Foundation
 protocol UserRepository {
     func saveUserName(_ name: String)
     func getUsername() -> String?
+    func saveUserAvatar(_ avatar: Data)
+    func getUserAvatar() -> Data?
 }

@@ -10,4 +10,6 @@ import Foundation
 protocol LocalStorage {
     func saveUserName(_ name: String)
     func getUserName() -> String?
+    func saveUserAvatar(_ avatar: Data)
+    func getUserAvatar() -> Data?
 }

@@ -21,4 +21,12 @@ class UserRepositoryImpl: UserRepository {
     func getUsername() -> String? {
         return localStorage.getUserName()
     }
+    
+    func saveUserAvatar(_ avatar: Data) {
+        localStorage.saveUserAvatar(avatar)
+    }
+    
+    func getUserAvatar() -> Data? {
+        return localStorage.getUserAvatar()
+    }
 }
