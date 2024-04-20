@@ -18,6 +18,7 @@ struct WelcomeScreen: View {
     
     var body: some View {
         VStack {
+            
             Text("Hi! What's your name?")
                 .font(.largeTitle)
                 .padding()
@@ -92,6 +93,9 @@ struct WelcomeScreen: View {
         .padding()
         .onAppear {
             selectedAvatarIndex = 0
+            if !viewModel.isNewUser {
+                router.navigate(to: .home)
+            }
         }
         .sheet(isPresented: $isImagePickerPresented) {
             ImagePicker(selectedImage: self.$selectedImage, isPresented: self.$isImagePickerPresented)

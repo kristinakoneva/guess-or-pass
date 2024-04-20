@@ -11,9 +11,15 @@ class WelcomeViewModel: ObservableObject {
     private let userRepository: UserRepository
     
     @Published var nameInput: String = ""
+    @Published var isNewUser: Bool = true
     
     init(userRepository: UserRepository) {
         self.userRepository = userRepository
+        let name = userRepository.getUserName()
+        let avatar = userRepository.getUserAvatar()
+        if name != nil || avatar != nil {
+            isNewUser = false
+        }
     }
     
     func saveUserName() {

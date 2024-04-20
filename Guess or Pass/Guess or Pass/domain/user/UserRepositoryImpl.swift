@@ -18,7 +18,7 @@ class UserRepositoryImpl: UserRepository {
         localStorage.saveUserName(name)
     }
     
-    func getUsername() -> String? {
+    func getUserName() -> String? {
         return localStorage.getUserName()
     }
     
