@@ -8,12 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		CF1B09A12BD3D731001742A1 /* Guess_or_PassApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1B09A02BD3D731001742A1 /* Guess_or_PassApp.swift */; };
-		CF1B09A32BD3D731001742A1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1B09A22BD3D731001742A1 /* ContentView.swift */; };
+		CF1B09A32BD3D731001742A1 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1B09A22BD3D731001742A1 /* HomeScreen.swift */; };
 		CF1B09A52BD3D733001742A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF1B09A42BD3D733001742A1 /* Assets.xcassets */; };
 		CF1B09A82BD3D733001742A1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF1B09A72BD3D733001742A1 /* Preview Assets.xcassets */; };
 		CF1B09B22BD3D733001742A1 /* Guess_or_PassTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1B09B12BD3D733001742A1 /* Guess_or_PassTests.swift */; };
 		CF1B09BC2BD3D733001742A1 /* Guess_or_PassUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1B09BB2BD3D733001742A1 /* Guess_or_PassUITests.swift */; };
 		CF1B09BE2BD3D733001742A1 /* Guess_or_PassUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1B09BD2BD3D733001742A1 /* Guess_or_PassUITestsLaunchTests.swift */; };
+		CF1B09D12BD3DD6B001742A1 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1B09D02BD3DD6B001742A1 /* Router.swift */; };
+		CF4F52422BD3E7CD00CA9009 /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4F52412BD3E7CD00CA9009 /* WelcomeScreen.swift */; };
+		CF4F52462BD3E7F900CA9009 /* WelcomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4F52452BD3E7F900CA9009 /* WelcomeViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +39,7 @@
 /* Begin PBXFileReference section */
 		CF1B099D2BD3D731001742A1 /* Guess or Pass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Guess or Pass.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF1B09A02BD3D731001742A1 /* Guess_or_PassApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guess_or_PassApp.swift; sourceTree = "<group>"; };
-		CF1B09A22BD3D731001742A1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CF1B09A22BD3D731001742A1 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
 		CF1B09A42BD3D733001742A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CF1B09A72BD3D733001742A1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CF1B09AD2BD3D733001742A1 /* Guess or PassTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Guess or PassTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +47,9 @@
 		CF1B09B72BD3D733001742A1 /* Guess or PassUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Guess or PassUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF1B09BB2BD3D733001742A1 /* Guess_or_PassUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guess_or_PassUITests.swift; sourceTree = "<group>"; };
 		CF1B09BD2BD3D733001742A1 /* Guess_or_PassUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guess_or_PassUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		CF1B09D02BD3DD6B001742A1 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		CF4F52412BD3E7CD00CA9009 /* WelcomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreen.swift; sourceTree = "<group>"; };
+		CF4F52452BD3E7F900CA9009 /* WelcomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,8 +100,9 @@
 		CF1B099F2BD3D731001742A1 /* Guess or Pass */ = {
 			isa = PBXGroup;
 			children = (
-				CF1B09A02BD3D731001742A1 /* Guess_or_PassApp.swift */,
-				CF1B09A22BD3D731001742A1 /* ContentView.swift */,
+				CF1B09CC2BD3DD0D001742A1 /* domain */,
+				CF1B09CB2BD3DD05001742A1 /* data */,
+				CF1B09CA2BD3DCFD001742A1 /* ui */,
 				CF1B09A42BD3D733001742A1 /* Assets.xcassets */,
 				CF1B09A62BD3D733001742A1 /* Preview Content */,
 			);
@@ -125,6 +132,64 @@
 				CF1B09BD2BD3D733001742A1 /* Guess_or_PassUITestsLaunchTests.swift */,
 			);
 			path = "Guess or PassUITests";
+			sourceTree = "<group>";
+		};
+		CF1B09CA2BD3DCFD001742A1 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				CF1B09D22BD3DE5E001742A1 /* screens */,
+				CF1B09CF2BD3DD5D001742A1 /* shared */,
+				CF1B09A02BD3D731001742A1 /* Guess_or_PassApp.swift */,
+			);
+			path = ui;
+			sourceTree = "<group>";
+		};
+		CF1B09CB2BD3DD05001742A1 /* data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
+		CF1B09CC2BD3DD0D001742A1 /* domain */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = domain;
+			sourceTree = "<group>";
+		};
+		CF1B09CF2BD3DD5D001742A1 /* shared */ = {
+			isa = PBXGroup;
+			children = (
+				CF1B09D02BD3DD6B001742A1 /* Router.swift */,
+			);
+			path = shared;
+			sourceTree = "<group>";
+		};
+		CF1B09D22BD3DE5E001742A1 /* screens */ = {
+			isa = PBXGroup;
+			children = (
+				CF4F52442BD3E7E100CA9009 /* welcome */,
+				CF4F52432BD3E7D300CA9009 /* home */,
+			);
+			path = screens;
+			sourceTree = "<group>";
+		};
+		CF4F52432BD3E7D300CA9009 /* home */ = {
+			isa = PBXGroup;
+			children = (
+				CF1B09A22BD3D731001742A1 /* HomeScreen.swift */,
+			);
+			path = home;
+			sourceTree = "<group>";
+		};
+		CF4F52442BD3E7E100CA9009 /* welcome */ = {
+			isa = PBXGroup;
+			children = (
+				CF4F52412BD3E7CD00CA9009 /* WelcomeScreen.swift */,
+				CF4F52452BD3E7F900CA9009 /* WelcomeViewModel.swift */,
+			);
+			path = welcome;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,7 +322,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CF1B09A32BD3D731001742A1 /* ContentView.swift in Sources */,
+				CF1B09A32BD3D731001742A1 /* HomeScreen.swift in Sources */,
+				CF4F52462BD3E7F900CA9009 /* WelcomeViewModel.swift in Sources */,
+				CF1B09D12BD3DD6B001742A1 /* Router.swift in Sources */,
+				CF4F52422BD3E7CD00CA9009 /* WelcomeScreen.swift in Sources */,
 				CF1B09A12BD3D731001742A1 /* Guess_or_PassApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

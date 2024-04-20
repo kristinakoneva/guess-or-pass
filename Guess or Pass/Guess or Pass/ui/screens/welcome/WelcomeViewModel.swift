@@ -6,3 +6,10 @@
 //
 
 import Foundation
+import Combine
+
+class WelcomeViewModel: ObservableObject {
+    @Published var name: String = ""
+    
+    
+}

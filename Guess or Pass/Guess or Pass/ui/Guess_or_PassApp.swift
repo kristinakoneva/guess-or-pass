@@ -9,9 +9,22 @@ import SwiftUI
 
 @main
 struct Guess_or_PassApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
+    @ObservedObject var router = Router()
+        
+        var body: some Scene {
+            WindowGroup {
+                NavigationStack(path: $router.navPath) {
+                    HomeScreen()
+                    .navigationDestination(for: Router.Destination.self) { destination in
+                        switch destination {
+                        case .welcome:
+                            HomeScreen()
+                        case .home:
+                            HomeScreen()
+                        }
+                    }
+                }
+                .environmentObject(router)
+            }
         }
-    }
 }
