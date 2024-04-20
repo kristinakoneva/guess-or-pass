@@ -37,6 +37,11 @@ class DependencyContainer {
         container.register(WelcomeViewModel.self) { r in
             return WelcomeViewModel(userRepository: r.resolve(UserRepository.self)!)
         }
+        container.register(HomeViewModel.self) { r in
+            let userRepository = r.resolve(UserRepository.self)!
+            let wordsRepository = r.resolve(WordsRepository.self)!
+            return HomeViewModel(userRepository: userRepository, wordsRepository: wordsRepository)
+        }
     }
     
     func resolve<T>(_ serviceType: T.Type) -> T? {

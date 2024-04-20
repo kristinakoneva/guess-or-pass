@@ -8,32 +8,71 @@
 import SwiftUI
 
 struct HomeScreen: View {
-    
-    @EnvironmentObject var router: Router
-    private let repoo: WordsRepository = DependencyContainer.shared.resolve(WordsRepository.self)!
-    
-    
+    @ObservedObject var viewModel: HomeViewModel = DependencyContainer.shared.resolve(HomeViewModel.self)!
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding().onAppear{
-            testFetchWords()
-        }
-    }
-    func testFetchWords() {
-        let repo = WordsRepositoryImpl(apiSource: DatamuseApiSourceImpl())
-        
-        repo.fetchWords(for: WordsCategory.food) { result in
-            switch result {
-            case .success(let words):
-                print("Fetched words: \(words)")
-            case .failure(let error):
-                print("Error fetching words: \(error)")
+        NavigationView {
+            ScrollView {
+                VStack {
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            // Handle settings action
+                        }) {
+                            Image(systemName: "gearshape.fill")
+                                .padding()
+                        }
+                    }
+
+                    if let userAvatar = viewModel.userAvatar {
+                        Image(uiImage: userAvatar)
+                            .resizable()
+                            .frame(width: 100, height: 100)
+                            .clipShape(Circle())
+                            .padding()
+                    }
+
+                    if let userName = viewModel.userName {
+                        Text("Welcome \(userName)! Ready to play?")
+                            .font(.title)
+                            .padding()
+                    }
+
+                    Text("Guess words for category:")
+                        .font(.headline)
+                        .padding()
+
+                    LazyVGrid(columns: Array(repeating: GridItem(), count: 2), spacing: 10) {
+                        ForEach(viewModel.categories, id: \.self) { category in
+                            WordsCategoryView(category: category, isSelected: Binding(
+                                get: { category == viewModel.selectedCategory },
+                                set: { _ in }
+                            ))
+                            .onTapGesture {
+                                viewModel.selectCategory(category)
+                            }
+                        }
+                    }
+                    .padding()
+
+                    Spacer()
+
+                    Button(action: {
+                        viewModel.onPlayButtonClicked()
+                    }) {
+                        Text("Play")
+                            .padding()
+                            .foregroundColor(.white)
+                            .background(Color.blue)
+                            .cornerRadius(10)
+                    }
+                    .padding()
+                }
             }
+            .navigationBarHidden(true)
+        }
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(title: Text("Select Category"), message: Text("Please select a category to play."), dismissButton: .default(Text("OK")))
         }
     }
 }
