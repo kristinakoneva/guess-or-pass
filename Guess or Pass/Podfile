@@ -6,6 +6,7 @@ target 'Guess or Pass' do
   use_frameworks!
 
   # Pods for Guess or Pass
+  pod 'Swinject'
 
   target 'Guess or PassTests' do
     inherit! :search_paths

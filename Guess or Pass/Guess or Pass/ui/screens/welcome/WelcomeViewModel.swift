@@ -6,10 +6,18 @@
 //
 
 import Foundation
-import Combine
 
 class WelcomeViewModel: ObservableObject {
-    @Published var name: String = ""
+    private let userRepository: UserRepository
     
+    @Published var nameInput: String = ""
     
+    init(userRepository: UserRepository) {
+        self.userRepository = userRepository
+    }
+    
+    func saveName() {
+        userRepository.saveUserName(nameInput)
+    }
 }
+

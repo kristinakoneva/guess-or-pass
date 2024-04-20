@@ -1,0 +1,6 @@
+framework module Pods_Guess_or_Pass {
+  umbrella header "Pods-Guess or Pass-umbrella.h"
+
+  export *
+  module * { export * }
+}
