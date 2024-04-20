@@ -15,6 +15,13 @@
 		CF0A93682BD4100D00FBC32A /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A93672BD4100D00FBC32A /* UserRepository.swift */; };
 		CF0A936A2BD4107400FBC32A /* UserRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A93692BD4107400FBC32A /* UserRepositoryImpl.swift */; };
 		CF0A936D2BD421E800FBC32A /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A936C2BD421E800FBC32A /* ImagePickerView.swift */; };
+		CF0A937B2BD43F4100FBC32A /* DatamuseApiSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A937A2BD43F4100FBC32A /* DatamuseApiSource.swift */; };
+		CF0A937E2BD43F5500FBC32A /* DatamuseApiSourceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A937D2BD43F5500FBC32A /* DatamuseApiSourceImpl.swift */; };
+		CF0A93802BD43F8200FBC32A /* WordsCategoryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A937F2BD43F8200FBC32A /* WordsCategoryRequest.swift */; };
+		CF0A93822BD4401F00FBC32A /* DatamuseWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A93812BD4401F00FBC32A /* DatamuseWord.swift */; };
+		CF0A93852BD440BC00FBC32A /* WordsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A93842BD440BC00FBC32A /* WordsRepository.swift */; };
+		CF0A93872BD440DD00FBC32A /* WordsRepositoryImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A93862BD440DD00FBC32A /* WordsRepositoryImpl.swift */; };
+		CF0A938A2BD4412500FBC32A /* WordsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A93892BD4412500FBC32A /* WordsCategory.swift */; };
 		CF1B09A12BD3D731001742A1 /* Guess_or_PassApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1B09A02BD3D731001742A1 /* Guess_or_PassApp.swift */; };
 		CF1B09A32BD3D731001742A1 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1B09A22BD3D731001742A1 /* HomeScreen.swift */; };
 		CF1B09A52BD3D733001742A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF1B09A42BD3D733001742A1 /* Assets.xcassets */; };
@@ -60,6 +67,13 @@
 		CF0A93672BD4100D00FBC32A /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		CF0A93692BD4107400FBC32A /* UserRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryImpl.swift; sourceTree = "<group>"; };
 		CF0A936C2BD421E800FBC32A /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
+		CF0A937A2BD43F4100FBC32A /* DatamuseApiSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatamuseApiSource.swift; sourceTree = "<group>"; };
+		CF0A937D2BD43F5500FBC32A /* DatamuseApiSourceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatamuseApiSourceImpl.swift; sourceTree = "<group>"; };
+		CF0A937F2BD43F8200FBC32A /* WordsCategoryRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsCategoryRequest.swift; sourceTree = "<group>"; };
+		CF0A93812BD4401F00FBC32A /* DatamuseWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatamuseWord.swift; sourceTree = "<group>"; };
+		CF0A93842BD440BC00FBC32A /* WordsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsRepository.swift; sourceTree = "<group>"; };
+		CF0A93862BD440DD00FBC32A /* WordsRepositoryImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsRepositoryImpl.swift; sourceTree = "<group>"; };
+		CF0A93892BD4412500FBC32A /* WordsCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsCategory.swift; sourceTree = "<group>"; };
 		CF1B099D2BD3D731001742A1 /* Guess or Pass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Guess or Pass.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF1B09A02BD3D731001742A1 /* Guess_or_PassApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guess_or_PassApp.swift; sourceTree = "<group>"; };
 		CF1B09A22BD3D731001742A1 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
@@ -151,6 +165,43 @@
 			path = views;
 			sourceTree = "<group>";
 		};
+		CF0A93792BD43EC800FBC32A /* remote */ = {
+			isa = PBXGroup;
+			children = (
+				CF0A937C2BD43F4700FBC32A /* models */,
+				CF0A937A2BD43F4100FBC32A /* DatamuseApiSource.swift */,
+				CF0A937D2BD43F5500FBC32A /* DatamuseApiSourceImpl.swift */,
+			);
+			path = remote;
+			sourceTree = "<group>";
+		};
+		CF0A937C2BD43F4700FBC32A /* models */ = {
+			isa = PBXGroup;
+			children = (
+				CF0A937F2BD43F8200FBC32A /* WordsCategoryRequest.swift */,
+				CF0A93812BD4401F00FBC32A /* DatamuseWord.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		CF0A93832BD4409D00FBC32A /* words */ = {
+			isa = PBXGroup;
+			children = (
+				CF0A93882BD440E200FBC32A /* models */,
+				CF0A93842BD440BC00FBC32A /* WordsRepository.swift */,
+				CF0A93862BD440DD00FBC32A /* WordsRepositoryImpl.swift */,
+			);
+			path = words;
+			sourceTree = "<group>";
+		};
+		CF0A93882BD440E200FBC32A /* models */ = {
+			isa = PBXGroup;
+			children = (
+				CF0A93892BD4412500FBC32A /* WordsCategory.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
 		CF1B09942BD3D731001742A1 = {
 			isa = PBXGroup;
 			children = (
@@ -224,6 +275,7 @@
 		CF1B09CB2BD3DD05001742A1 /* data */ = {
 			isa = PBXGroup;
 			children = (
+				CF0A93792BD43EC800FBC32A /* remote */,
 				CF0A935E2BD40CDE00FBC32A /* local */,
 			);
 			path = data;
@@ -232,6 +284,7 @@
 		CF1B09CC2BD3DD0D001742A1 /* domain */ = {
 			isa = PBXGroup;
 			children = (
+				CF0A93832BD4409D00FBC32A /* words */,
 				CF0A93662BD40FA200FBC32A /* user */,
 			);
 			path = domain;
@@ -524,13 +577,20 @@
 				CF0A93652BD40DC700FBC32A /* InjectionContainer.swift in Sources */,
 				CF0A93682BD4100D00FBC32A /* UserRepository.swift in Sources */,
 				CF0A936D2BD421E800FBC32A /* ImagePickerView.swift in Sources */,
+				CF0A937E2BD43F5500FBC32A /* DatamuseApiSourceImpl.swift in Sources */,
+				CF0A93802BD43F8200FBC32A /* WordsCategoryRequest.swift in Sources */,
 				CF4F52462BD3E7F900CA9009 /* WelcomeViewModel.swift in Sources */,
+				CF0A938A2BD4412500FBC32A /* WordsCategory.swift in Sources */,
+				CF0A93822BD4401F00FBC32A /* DatamuseWord.swift in Sources */,
 				CF1B09D12BD3DD6B001742A1 /* Router.swift in Sources */,
 				CF4F52422BD3E7CD00CA9009 /* WelcomeScreen.swift in Sources */,
 				CF0A936A2BD4107400FBC32A /* UserRepositoryImpl.swift in Sources */,
 				CF1B09A12BD3D731001742A1 /* Guess_or_PassApp.swift in Sources */,
+				CF0A937B2BD43F4100FBC32A /* DatamuseApiSource.swift in Sources */,
 				CF0A93622BD40D8800FBC32A /* LocalStorageImpl.swift in Sources */,
 				CF0A93602BD40D1700FBC32A /* LocalStorage.swift in Sources */,
+				CF0A93852BD440BC00FBC32A /* WordsRepository.swift in Sources */,
+				CF0A93872BD440DD00FBC32A /* WordsRepositoryImpl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

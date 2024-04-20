@@ -21,10 +21,16 @@ class DependencyContainer {
         container.register(LocalStorage.self) { _ in
             return LocalStorageImpl()
         }
+        container.register(DatamuseApiSource.self) { _ in
+            return DatamuseApiSourceImpl()
+        }
         
         // Repositories
         container.register(UserRepository.self) { r in
             return UserRepositoryImpl(localStorage: r.resolve(LocalStorage.self)!)
+        }
+        container.register(WordsRepository.self) { r in
+            return WordsRepositoryImpl(apiSource: r.resolve(DatamuseApiSource.self)!)
         }
         
         // ViewModels
