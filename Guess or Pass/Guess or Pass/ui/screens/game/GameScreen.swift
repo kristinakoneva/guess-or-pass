@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import Foundation
+import CoreMotion
 
 struct GameScreen: View {
     @EnvironmentObject var router: Router
@@ -15,6 +17,7 @@ struct GameScreen: View {
     
     @State private var timeLeft = 60
     @State private var timer: Timer? = nil
+    let motionManager = CMMotionManager()
     
     var body: some View {
         Group {
@@ -71,6 +74,8 @@ struct GameScreen: View {
                     return Alert(title: Text("Game Over"), message: Text("You guessed \(viewModel.guessedWordsCount) words!"), dismissButton: .default(Text("OK"),action: {
                         router.navigateBack()
                     }))
+                }.onAppear {
+                    startDeviceMotionUpdates()
                 }
             } else {
                 CountdownView() {
@@ -81,6 +86,27 @@ struct GameScreen: View {
             viewModel.fetchWords(for: self.wordsCategory)
         }
     }
+    
+    func startDeviceMotionUpdates() {
+            guard motionManager.isDeviceMotionAvailable else {
+                print("Device motion is not available")
+                return
+            }
+
+            motionManager.startDeviceMotionUpdates(to: .main) { motion, error in
+                guard let motion = motion else { return }
+                
+                let zAcceleration = motion.userAcceleration.z
+
+                if zAcceleration > 0.5 {
+                    print("Device tilted forward")
+                    viewModel.guessWord()
+                } else if zAcceleration < -0.5 {
+                    print("Device tilted backward")
+                    viewModel.passWord()
+                }
+            }
+        }
 }
 
 struct CountdownView: View {
