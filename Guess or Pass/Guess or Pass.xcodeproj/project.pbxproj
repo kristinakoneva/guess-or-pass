@@ -26,6 +26,7 @@
 		CF0A938E2BD44C9400FBC32A /* WordsCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A938D2BD44C9400FBC32A /* WordsCategoryView.swift */; };
 		CF0A93942BD533A900FBC32A /* GameScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A93932BD533A900FBC32A /* GameScreen.swift */; };
 		CF0A93962BD533B600FBC32A /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A93952BD533B600FBC32A /* GameViewModel.swift */; };
+		CF0A939A2BD563C800FBC32A /* OrientationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A93992BD563C800FBC32A /* OrientationInfo.swift */; };
 		CF1B09A12BD3D731001742A1 /* Guess_or_PassApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1B09A02BD3D731001742A1 /* Guess_or_PassApp.swift */; };
 		CF1B09A32BD3D731001742A1 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1B09A22BD3D731001742A1 /* HomeScreen.swift */; };
 		CF1B09A52BD3D733001742A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF1B09A42BD3D733001742A1 /* Assets.xcassets */; };
@@ -82,6 +83,7 @@
 		CF0A938D2BD44C9400FBC32A /* WordsCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsCategoryView.swift; sourceTree = "<group>"; };
 		CF0A93932BD533A900FBC32A /* GameScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScreen.swift; sourceTree = "<group>"; };
 		CF0A93952BD533B600FBC32A /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
+		CF0A93992BD563C800FBC32A /* OrientationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrientationInfo.swift; sourceTree = "<group>"; };
 		CF1B099D2BD3D731001742A1 /* Guess or Pass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Guess or Pass.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF1B09A02BD3D731001742A1 /* Guess_or_PassApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guess_or_PassApp.swift; sourceTree = "<group>"; };
 		CF1B09A22BD3D731001742A1 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
@@ -228,6 +230,14 @@
 			path = game;
 			sourceTree = "<group>";
 		};
+		CF0A939B2BD5643000FBC32A /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				CF0A93992BD563C800FBC32A /* OrientationInfo.swift */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
 		CF1B09942BD3D731001742A1 = {
 			isa = PBXGroup;
 			children = (
@@ -319,6 +329,7 @@
 		CF1B09CF2BD3DD5D001742A1 /* shared */ = {
 			isa = PBXGroup;
 			children = (
+				CF0A939B2BD5643000FBC32A /* utils */,
 				CF0A93912BD52F5B00FBC32A /* navigation */,
 				CF0A936B2BD421D900FBC32A /* views */,
 			);
@@ -616,6 +627,7 @@
 				CF4F52422BD3E7CD00CA9009 /* WelcomeScreen.swift in Sources */,
 				CF0A936A2BD4107400FBC32A /* UserRepositoryImpl.swift in Sources */,
 				CF0A93962BD533B600FBC32A /* GameViewModel.swift in Sources */,
+				CF0A939A2BD563C800FBC32A /* OrientationInfo.swift in Sources */,
 				CF1B09A12BD3D731001742A1 /* Guess_or_PassApp.swift in Sources */,
 				CF0A937B2BD43F4100FBC32A /* DatamuseApiSource.swift in Sources */,
 				CF0A93622BD40D8800FBC32A /* LocalStorageImpl.swift in Sources */,

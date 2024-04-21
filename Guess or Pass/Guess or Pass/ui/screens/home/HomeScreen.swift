@@ -15,7 +15,7 @@ struct HomeScreen: View {
         NavigationView {
             ScrollView {
                 VStack {
-                    VStack{
+                    VStack {
                         HStack {
                             Spacer()
                             Button(action: {
