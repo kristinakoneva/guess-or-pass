@@ -207,6 +207,14 @@
 			path = models;
 			sourceTree = "<group>";
 		};
+		CF0A93912BD52F5B00FBC32A /* navigation */ = {
+			isa = PBXGroup;
+			children = (
+				CF1B09D02BD3DD6B001742A1 /* Router.swift */,
+			);
+			path = navigation;
+			sourceTree = "<group>";
+		};
 		CF1B09942BD3D731001742A1 = {
 			isa = PBXGroup;
 			children = (
@@ -298,8 +306,8 @@
 		CF1B09CF2BD3DD5D001742A1 /* shared */ = {
 			isa = PBXGroup;
 			children = (
+				CF0A93912BD52F5B00FBC32A /* navigation */,
 				CF0A936B2BD421D900FBC32A /* views */,
-				CF1B09D02BD3DD6B001742A1 /* Router.swift */,
 			);
 			path = shared;
 			sourceTree = "<group>";
