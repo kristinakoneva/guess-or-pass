@@ -98,7 +98,8 @@ struct WelcomeScreen: View {
             }
         }
         .sheet(isPresented: $isImagePickerPresented) {
-            ImagePicker(selectedImage: self.$selectedImage, isPresented: self.$isImagePickerPresented)
+            // TODO: Add option to take the image directly
+            ImagePicker(selectedImage: self.$selectedImage,sourceType: .photoLibrary)
         }
         .alert(isPresented: $isAlertPresented) {
             Alert(title: Text("Please provide input"), message: Text("Name and/or avatar selection are/is missing."), dismissButton: .default(Text("OK")))
