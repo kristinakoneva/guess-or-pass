@@ -14,6 +14,9 @@ class SettingsViewModel: ObservableObject {
     @Published private(set) var name: String? = nil
     @Published private(set) var avatar: UIImage? = nil
     @Published private(set) var bestScore: Int? = nil
+    @Published private(set) var isGameNavTypeSheetShown = false
+    
+    @Published var isActionSheetPresented = false
     
     let settingsItems: [SettingsItem] = [
             .changeName,
@@ -37,11 +40,22 @@ class SettingsViewModel: ObservableObject {
             // Handle change avatar action
             break
         case .changeGameNavigation:
-            // Handle change game navigation action
+            self.isGameNavTypeSheetShown = true
+            self.isActionSheetPresented = true
             break
         case .readInstructions:
             // Handle read instructions action
             break
         }
+    }
+    
+    private func closeActionSheet() {
+        self.isGameNavTypeSheetShown = false
+        self.isActionSheetPresented = false
+    }
+    
+    func saveGameNavTypeChoice(navType: GameNavigationType) {
+        closeActionSheet()
+        userRepository.saveGameNavigationType(navType)
     }
 }
