@@ -89,11 +89,14 @@ struct HomeScreen: View {
             } else{
                 Alert(title: Text("Guess or Pass"), message: Text("You've chosen category \(viewModel.selectedCategory?.categoryName ?? ""). Try to guess as many words as you can in one minute. 💪\n\nGood luck! 🍀"), primaryButton: .default(Text("Start game")) {
                     viewModel.closeDialog()
-                    router.navigate(to: .game(wordsCategory: viewModel.selectedCategory!))
+                    router.navigate(to: .game(wordsCategory: viewModel.selectedCategory!, gameNavType: viewModel.gameNavType))
                 }, secondaryButton: .cancel(Text("Cancel")){
                     viewModel.closeDialog()
                 })
             }
+        }.onAppear {
+            // refreshing
+            viewModel.fetchUserData()
         }
         
         

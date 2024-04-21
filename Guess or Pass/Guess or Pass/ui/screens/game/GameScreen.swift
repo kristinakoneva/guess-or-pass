@@ -13,6 +13,7 @@ struct GameScreen: View {
     @EnvironmentObject var router: Router
     @EnvironmentObject var orientationInfo: OrientationInfo
     var wordsCategory: WordsCategory
+    var gameNavType: GameNavigationType
     @ObservedObject var viewModel: GameViewModel = DependencyContainer.shared.resolve(GameViewModel.self)!
     
     @State private var timeLeft = 60
@@ -47,26 +48,28 @@ struct GameScreen: View {
                         .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                         .padding()
                     
-                    HStack {
-                        Button("Pass", action: {
-                            viewModel.passWord()
-                        })
-                        .padding()
-                        .background(Color.red)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                        
-                        Spacer()
-                        
-                        Button("Guessed", action: {
-                            viewModel.guessWord()
-                        })
-                        .padding()
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
+                    if gameNavType == GameNavigationType.buttons || gameNavType == GameNavigationType.all {
+                        HStack {
+                            Button("Pass", action: {
+                                viewModel.passWord()
+                            })
+                            .padding()
+                            .background(Color.red)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                            
+                            Spacer()
+                            
+                            Button("Guessed", action: {
+                                viewModel.guessWord()
+                            })
+                            .padding()
+                            .background(Color.green)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                        }
+                        .padding(.horizontal)
                     }
-                    .padding(.horizontal)
                 }
                 .background(viewModel.backgroundColor)
                 .alert(isPresented: $viewModel.showGameEndDialog) {
@@ -75,7 +78,9 @@ struct GameScreen: View {
                         router.navigateBack()
                     }))
                 }.onAppear {
-                    startDeviceMotionUpdates()
+                    if gameNavType == GameNavigationType.tilt || gameNavType == GameNavigationType.all {
+                        startDeviceMotionUpdates()
+                    }
                 }
             } else {
                 CountdownView() {
@@ -140,5 +145,5 @@ struct CountdownView: View {
 }
 
 #Preview {
-    GameScreen(wordsCategory: WordsCategory.animals)
+    GameScreen(wordsCategory: WordsCategory.animals, gameNavType: GameNavigationType.all)
 }

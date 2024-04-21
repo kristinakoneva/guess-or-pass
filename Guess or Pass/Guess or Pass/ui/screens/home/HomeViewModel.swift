@@ -11,6 +11,7 @@ import SwiftUI
 class HomeViewModel: ObservableObject {
     @Published private(set) var userName: String?
     @Published private(set) var userAvatar: UIImage?
+    @Published private(set) var gameNavType: GameNavigationType = GameNavigationType.all
     @Published private(set) var showNoCategorySelectedDialog = false
     @Published private(set) var showGameStartDialog = false
     @Published private(set) var selectedCategory: WordsCategory? = nil
@@ -28,9 +29,10 @@ class HomeViewModel: ObservableObject {
         fetchUserData()
     }
     
-    private func fetchUserData() {
+    func fetchUserData() {
         self.userName = userRepository.getUserName()
         self.userAvatar = UIImage(data: userRepository.getUserAvatar()!)
+        self.gameNavType = userRepository.getGameNavigationType()
     }
     
     func selectCategory(_ category: WordsCategory) {

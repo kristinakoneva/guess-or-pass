@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum GameNavigationType: String {
+enum GameNavigationType: String, Codable {
     case buttons
     case tilt
     case all

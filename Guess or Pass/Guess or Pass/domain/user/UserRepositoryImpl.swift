@@ -35,7 +35,7 @@ class UserRepositoryImpl: UserRepository {
         localStorage.saveGameNavigationType(gameNavType.rawValue)
     }
     
-    func getGameNavigationType() -> GameNavigationType? {
-        return GameNavigationType(rawValue: localStorage.getGameNavigationType() ?? "all")
+    func getGameNavigationType() -> GameNavigationType {
+        return GameNavigationType(rawValue: localStorage.getGameNavigationType() ?? "all") ?? GameNavigationType.all
     }
 }

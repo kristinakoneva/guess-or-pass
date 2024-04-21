@@ -12,7 +12,7 @@ final class Router: ObservableObject {
     public enum Destination: Codable, Hashable {
         case welcome
         case home
-        case game(wordsCategory: WordsCategory)
+        case game(wordsCategory: WordsCategory, gameNavType: GameNavigationType)
         case settings
     }
     
