@@ -9,39 +9,60 @@ import SwiftUI
 
 struct HomeScreen: View {
     @ObservedObject var viewModel: HomeViewModel = DependencyContainer.shared.resolve(HomeViewModel.self)!
-
+    
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack {
-                    HStack {
-                        Spacer()
-                        Button(action: {
-                            // Handle settings action
-                        }) {
-                            Image(systemName: "gearshape.fill")
-                                .padding()
-                        }
-                    }
-
-                    if let userAvatar = viewModel.userAvatar {
-                        Image(uiImage: userAvatar)
-                            .resizable()
-                            .frame(width: 100, height: 100)
-                            .clipShape(Circle())
-                            .padding()
-                    }
-
-                    if let userName = viewModel.userName {
-                        Text("Welcome \(userName)! Ready to play?")
-                            .font(.title)
-                            .padding()
-                    }
-
+                    
+                    VStack{
+                        HStack {
+                            Spacer()
+                            Button(action: {
+                                // Handle settings action
+                            }) {
+                                Image(systemName: "gearshape.fill")
+                                    .foregroundColor(Color.white)
+                                    .font(.system(size: 24))
+                                    .padding()
+                            }}
+                        VStack{
+                            if let userAvatar = viewModel.userAvatar {
+                                Image(uiImage: userAvatar)
+                                    .resizable()
+                                    .frame(width: 100, height: 100)
+                                    .clipShape(Circle())
+                            }
+                            
+                            if let userName = viewModel.userName {
+                                Text("Welcome \(userName)! 👋\nReady to play? 😁")
+                                    .font(.title)
+                                    .fontWeight(.bold)
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(.white)
+                                    .padding(.top, 8)
+                                    .padding(.bottom, 16)
+                                    .padding(.horizontal, 24)
+                            }
+                        }}
+                    .frame(maxWidth: .infinity)
+                    .background(
+                        RoundedRectangle(cornerRadius: 0, style: .continuous)
+                            .fill(Color.blue).clipShape(
+                                .rect(
+                                    topLeadingRadius: 0,
+                                    bottomLeadingRadius: 24,
+                                    bottomTrailingRadius: 24,
+                                    topTrailingRadius: 0
+                                )
+                            )
+                    )
+                    
                     Text("Guess words for category:")
                         .font(.headline)
-                        .padding()
-
+                        .padding(.horizontal, 24)
+                        .padding(.top, 24)
+                    
                     LazyVGrid(columns: Array(repeating: GridItem(), count: 2), spacing: 10) {
                         ForEach(viewModel.categories, id: \.self) { category in
                             WordsCategoryView(category: category, isSelected: Binding(
@@ -54,25 +75,22 @@ struct HomeScreen: View {
                         }
                     }
                     .padding()
-
-                    Spacer()
-
-                    Button(action: {
-                        viewModel.onPlayButtonClicked()
-                    }) {
-                        Text("Play")
-                            .padding()
-                            .foregroundColor(.white)
-                            .background(Color.blue)
-                            .cornerRadius(10)
-                    }
-                    .padding()
                 }
             }
             .navigationBarHidden(true)
         }
         .alert(isPresented: $viewModel.showAlert) {
             Alert(title: Text("Select Category"), message: Text("Please select a category to play."), dismissButton: .default(Text("OK")))
+        }
+        
+        VStack {
+            Button("Play") {
+                viewModel.onPlayButtonClicked()
+            }
+            .padding()
+            .background(Color.blue)
+            .foregroundColor(.white)
+            .cornerRadius(10)
         }
     }
 }

@@ -8,6 +8,10 @@
 enum WordsCategoryRequest {
     case animals
     case food
+    case sports
+    case technology
+    case music
+    case nature
     
     var topic: String {
         switch self {
@@ -15,6 +19,14 @@ enum WordsCategoryRequest {
             return "animals,zoo,pets"
         case .food:
             return "food,meals"
+        case .sports:
+            return "sports,games,fitness"
+        case .technology:
+            return "technology,gadgets"
+        case .music:
+            return "music,instruments"
+        case .nature:
+            return "nature,environment,outdoors"
         }
     }
     
@@ -24,6 +36,15 @@ enum WordsCategoryRequest {
             return "dog"
         case .food:
             return "pizza"
+        case .sports:
+            return "football"
+        case .technology:
+            return "smartphone"
+        case .music:
+            return "guitar"
+        case .nature:
+            return "tree"
         }
     }
 }
+

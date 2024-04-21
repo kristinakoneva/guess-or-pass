@@ -17,7 +17,7 @@ class HomeViewModel: ObservableObject {
     private let userRepository: UserRepository
     private let wordsRepository: WordsRepository
     
-    var categories: [WordsCategory] = [.animals, .food]
+    var categories: [WordsCategory] = [.animals, .food, .sports, .technology, .music, .nature]
     
     init(userRepository: UserRepository, wordsRepository: WordsRepository) {
         self.userRepository = userRepository

@@ -23,6 +23,14 @@ class WordsRepositoryImpl: WordsRepository {
                return WordsCategoryRequest.animals
            case .food:
                return WordsCategoryRequest.food
+           case .sports:
+               return WordsCategoryRequest.sports
+           case .technology:
+               return WordsCategoryRequest.technology
+           case .music:
+               return WordsCategoryRequest.music
+           case .nature:
+               return WordsCategoryRequest.nature
            }
        }
 }
