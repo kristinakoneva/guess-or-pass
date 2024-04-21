@@ -10,6 +10,7 @@ import SwiftUI
 struct GameScreen: View {
     @EnvironmentObject var router: Router
     @EnvironmentObject var orientationInfo: OrientationInfo
+    var wordsCategory: WordsCategory
     @ObservedObject var viewModel: GameViewModel = DependencyContainer.shared.resolve(GameViewModel.self)!
     
     @State private var timeLeft = 60
@@ -76,6 +77,8 @@ struct GameScreen: View {
                     viewModel.startGame()
                 }
             }
+        }.onAppear {
+            viewModel.fetchWords(for: self.wordsCategory)
         }
     }
 }
@@ -111,5 +114,5 @@ struct CountdownView: View {
 }
 
 #Preview {
-    GameScreen()
+    GameScreen(wordsCategory: WordsCategory.animals)
 }

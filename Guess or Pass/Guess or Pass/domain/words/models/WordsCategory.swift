@@ -5,7 +5,9 @@
 //  Created by Kristina Koneva on 20.4.24.
 //
 
-enum WordsCategory {
+import Foundation
+
+enum WordsCategory: Codable {
     case animals
     case food
     case sports
@@ -47,4 +49,3 @@ enum WordsCategory {
         }
     }
 }
-

@@ -15,22 +15,29 @@ class GameViewModel: ObservableObject {
     @Published private(set) var backgroundColor: Color = .yellow
     
     @Published var showGameEndDialog: Bool = false
-   
+    
     private var words: [String] = []
     private var currentWordIndex: Int = 0
     
     private let wordsRepository: WordsRepository
-
+    
     init(wordsRepository: WordsRepository) {
         self.wordsRepository = wordsRepository
-        fetchWords(for: WordsCategory.animals)
-        currentWord = words[currentWordIndex]
     }
-
-    private func fetchWords(for category: WordsCategory) {
-        words = ["Word1", "Word2", "Word3", "Word4", "Word5"]
+    
+    func fetchWords(for category: WordsCategory) {
+        wordsRepository.fetchWords(for: .animals) { result in
+            switch result {
+            case .success(let words):
+                self.words = words
+                self.filterAndShuffleWords()
+                self.currentWord = self.words[self.currentWordIndex]
+            case .failure(let error):
+                print("Error fetching words:", error)
+            }
+        }
     }
-
+    
     func passWord() {
         backgroundColor = .red
         
@@ -44,7 +51,7 @@ class GameViewModel: ObservableObject {
             }
         }
     }
-
+    
     func guessWord() {
         guessedWordsCount += 1
         backgroundColor = .green
@@ -73,8 +80,21 @@ class GameViewModel: ObservableObject {
         self.backgroundColor = .blue
         isCountdownFinished = true
     }
-
+    
     func endGame() {
         showGameEndDialog = true
     }
- }
+    
+    func filterAndShuffleWords() {
+        var filteredWords: [String] = []
+        
+        for word in words {
+            let singularForm = word.singularForm()
+            if !filteredWords.contains(singularForm) {
+                filteredWords.append(singularForm)
+            }
+        }
+        
+        words =  filteredWords.shuffled()
+    }
+}
