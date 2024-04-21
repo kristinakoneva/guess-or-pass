@@ -70,6 +70,7 @@ class GameViewModel: ObservableObject {
     }
     
     func startGame() {
+        self.backgroundColor = .blue
         isCountdownFinished = true
     }
 

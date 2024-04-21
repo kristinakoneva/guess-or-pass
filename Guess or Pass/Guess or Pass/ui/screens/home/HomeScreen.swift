@@ -25,6 +25,7 @@ struct HomeScreen: View {
                                     .foregroundColor(Color.white)
                                     .font(.system(size: 24))
                                     .padding()
+                                    .padding(.top, 36)
                             }}
                         VStack{
                             if let userAvatar = viewModel.userAvatar {
@@ -77,6 +78,7 @@ struct HomeScreen: View {
                     .padding()
                 }
             }
+            .ignoresSafeArea(.all)
             .navigationBarHidden(true)
         }
         .alert(isPresented: $viewModel.showDialog) {

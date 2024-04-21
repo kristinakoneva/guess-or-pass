@@ -12,99 +12,103 @@ struct WelcomeScreen: View {
     @ObservedObject var viewModel: WelcomeViewModel = DependencyContainer.shared.resolve(WelcomeViewModel.self)!
     
     @State private var selectedImage: UIImage?
-    @State private var isImagePickerPresented = false
-    @State private var selectedAvatarIndex: Int = 0
+    @State private var shouldOpenImagePicker = false
+    @State private var imagePickerSourceType: UIImagePickerController.SourceType = .photoLibrary
     @State private var isAlertPresented = false
     
     var body: some View {
-        VStack {
-            
-            Text("Hi! What's your name?")
-                .font(.largeTitle)
-                .padding()
-            
-            TextField("Enter your name", text: $viewModel.nameInput)
-                .padding()
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-            
-            Text("Your avatar will be:")
-                .padding(.top, 10)
-            
-            if let selectedImage = selectedImage {
-                Image(uiImage: selectedImage)
-                    .resizable()
-                    .frame(width: 50, height: 50)
-                    .padding()
-                    .background(Color.blue.opacity(0.3))
-                    .cornerRadius(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.blue, lineWidth: 2)
-                    )
-            } else {
-                AvatarImage(systemName: "person.fill", isSelected: true)
-                    .padding()
-            }
-            
-            Text("Choose a different avatar:")
-            
-            HStack {
-                ForEach(0..<3) { index in
-                    AvatarImage(systemName: "person.fill", isSelected: index == selectedAvatarIndex)
+        NavigationView {
+            ScrollView {
+                VStack {
+                    
+                    Text("Hi! 😄\nWhat's your name?")
+                        .multilineTextAlignment(.center)
+                        .font(.largeTitle)
                         .padding()
-                        .onTapGesture {
-                            selectedAvatarIndex = index
-                            selectedImage = nil
+                    
+                    TextField("Enter your name", text: $viewModel.nameInput)
+                        .padding()
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    
+                    
+                    
+                    if let selectedImage = selectedImage {
+                        Text("👤 Your avatar will be:")
+                            .padding(.top, 10)
+                        
+                        Image(uiImage: selectedImage)
+                            .resizable()
+                            .frame(width: 100, height: 100)
+                            .cornerRadius(10)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.blue, lineWidth: 2)
+                            )
+                    }
+                    
+                    Text("Choose your avatar:").padding(.top, 10)
+                    
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            self.imagePickerSourceType = .photoLibrary
+                            self.shouldOpenImagePicker = true
+                        }) {
+                            Text("Choose from gallery 🖼️")
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Color.blue)
+                                .cornerRadius(10)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
-                }
-            }
-            
-            HStack {
-                Spacer()
-                Button(action: {
-                    self.isImagePickerPresented.toggle()
-                    selectedAvatarIndex = -1
-                }) {
-                    Text("Choose Custom")
-                        .foregroundColor(.white)
                         .padding()
-                        .background(Color.blue)
-                        .cornerRadius(10)
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            self.imagePickerSourceType = .camera
+                            self.shouldOpenImagePicker = true
+                        }) {
+                            Text("Take photo now 📸")
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Color.blue)
+                                .cornerRadius(10)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        }
+                        
+                    }
+                    .padding(.bottom, 32)
+                    
+                    Button("Let's play") {
+                        if viewModel.nameInput.isEmpty || selectedImage == nil {
+                            isAlertPresented = true
+                        } else {
+                            saveImageToLocalStorage(image: selectedImage!)
+                            viewModel.saveUserName()
+                            router.navigate(to: .home)
+                        }
+                    }
+                    .padding()
+                    .background(Color.green)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
                 }
                 .padding()
-                Spacer()
-            }
-            
-            // Let's play button
-            Button("Let's play") {
-                if viewModel.nameInput.isEmpty || selectedImage == nil {
-                    isAlertPresented = true
-                } else {
-                    saveImageToLocalStorage(image: selectedImage!)
-                    viewModel.saveUserName()
-                    router.navigate(to: .home)
+                .onAppear {
+                    if !viewModel.isNewUser {
+                        router.navigate(to: .home)
+                    }
                 }
-            }
-            .padding()
-            .background(Color.green)
-            .foregroundColor(.white)
-            .cornerRadius(10)
-        }
-        .padding()
-        .onAppear {
-            selectedAvatarIndex = 0
-            if !viewModel.isNewUser {
-                router.navigate(to: .home)
-            }
-        }
-        .sheet(isPresented: $isImagePickerPresented) {
-            // TODO: Add option to take the image directly
-            ImagePicker(selectedImage: self.$selectedImage,sourceType: .photoLibrary)
-        }
-        .alert(isPresented: $isAlertPresented) {
-            Alert(title: Text("Please provide input"), message: Text("Name and/or avatar selection are/is missing."), dismissButton: .default(Text("OK")))
-        }
-    }
+                .sheet(isPresented: $shouldOpenImagePicker) {
+                    ImagePicker(selectedImage: self.$selectedImage, sourceType: imagePickerSourceType)
+                }.onAppear {
+                    shouldOpenImagePicker = false
+                }
+                .alert(isPresented: $isAlertPresented) {
+                    Alert(title: Text("Please provide input"), message: Text("Name and/or avatar selection are/is missing."), dismissButton: .default(Text("OK")))
+                }
+            }}}
     
     func saveImageToLocalStorage(image: UIImage) {
         if let imageData = image.pngData() {
@@ -113,7 +117,6 @@ struct WelcomeScreen: View {
     }
 }
 
-// AvatarImage with border to indicate selection
 struct AvatarImage: View {
     var systemName: String
     var isSelected: Bool
@@ -130,4 +133,8 @@ struct AvatarImage: View {
                     .stroke(isSelected ? Color.blue : Color.clear, lineWidth: 2)
             )
     }
+}
+
+#Preview {
+    WelcomeScreen()
 }

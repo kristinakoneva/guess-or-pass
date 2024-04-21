@@ -11,7 +11,7 @@ class WelcomeViewModel: ObservableObject {
     private let userRepository: UserRepository
     
     @Published var nameInput: String = ""
-    @Published var isNewUser: Bool = true
+    @Published private(set) var isNewUser: Bool = true
     
     init(userRepository: UserRepository) {
         self.userRepository = userRepository

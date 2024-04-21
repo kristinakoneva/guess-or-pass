@@ -16,7 +16,7 @@ struct GameScreen: View {
     @State private var timer: Timer? = nil
     
     var body: some View {
-        VStack {
+        Group {
             if viewModel.isCountdownFinished {
                 VStack {
                     viewModel.backgroundColor
@@ -26,7 +26,7 @@ struct GameScreen: View {
                         .font(.title)
                         .foregroundColor(.white)
                         .padding(.trailing, 20)
-                        .padding(.top, 20).onAppear {
+                        .padding(.top, 16).onAppear {
                             timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
                                 if timeLeft > 1 {
                                     timeLeft -= 1
@@ -67,7 +67,9 @@ struct GameScreen: View {
                 .background(viewModel.backgroundColor)
                 .alert(isPresented: $viewModel.showGameEndDialog) {
                     timer?.invalidate()
-                    return Alert(title: Text("Game Over"), message: Text("You guessed \(viewModel.guessedWordsCount) words!"), dismissButton: .default(Text("OK")))
+                    return Alert(title: Text("Game Over"), message: Text("You guessed \(viewModel.guessedWordsCount) words!"), dismissButton: .default(Text("OK"),action: {
+                        router.navigateBack()
+                    }))
                 }
             } else {
                 CountdownView() {
@@ -106,4 +108,8 @@ struct CountdownView: View {
             }
         }
     }
+}
+
+#Preview {
+    GameScreen()
 }
