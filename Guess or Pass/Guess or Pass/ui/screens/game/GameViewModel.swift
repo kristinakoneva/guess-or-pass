@@ -9,47 +9,71 @@ import Foundation
 import SwiftUI
 
 class GameViewModel: ObservableObject {
-    @Published private(set) var timeLeft: Int = 60
-    @Published private(set) var words: [String] = []
+    @Published private(set) var isCountdownFinished = false
     @Published private(set) var currentWord: String = ""
     @Published private(set) var guessedWordsCount: Int = 0
     @Published private(set) var backgroundColor: Color = .yellow
+    
     @Published var showGameEndDialog: Bool = false
+   
+    private var words: [String] = []
+    private var currentWordIndex: Int = 0
+    
     private let wordsRepository: WordsRepository
 
     init(wordsRepository: WordsRepository) {
         self.wordsRepository = wordsRepository
         fetchWords(for: WordsCategory.animals)
-        setCurrentWord("")
+        currentWord = words[currentWordIndex]
     }
 
     private func fetchWords(for category: WordsCategory) {
-        // Use your WordsRepository to fetch words for the given category
-        // For now, use a dummy list of words
         words = ["Word1", "Word2", "Word3", "Word4", "Word5"]
     }
 
-    func updateTimeLeft(_ timeLeft: Int) {
-        self.timeLeft = timeLeft
-    }
-
-    func setCurrentWord(_ word: String) {
-        currentWord = word
-    }
-
     func passWord() {
-        // Handle passing word
-        backgroundColor = .red // Show red background
+        backgroundColor = .red
+        
+        var blinked = false
+        Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { timer in
+            if !blinked {
+                blinked = true
+                timer.invalidate()
+                self.backgroundColor = .blue
+                self.nextWord()
+            }
+        }
     }
 
     func guessWord() {
-        // Handle guessing word
         guessedWordsCount += 1
-        backgroundColor = .green // Show green background
+        backgroundColor = .green
+        
+        var blinked = false
+        Timer.scheduledTimer(withTimeInterval: 0.4, repeats: true) { timer in
+            if !blinked {
+                blinked = true
+                timer.invalidate()
+                self.backgroundColor = .blue
+                self.nextWord()
+            }
+        }
+    }
+    
+    func nextWord() {
+        currentWordIndex += 1
+        if currentWordIndex >= words.count {
+            endGame()
+            return
+        }
+        currentWord = words[currentWordIndex]
+    }
+    
+    func startGame() {
+        isCountdownFinished = true
     }
 
     func endGame() {
-        // End the game
         showGameEndDialog = true
     }
-}
+ }
