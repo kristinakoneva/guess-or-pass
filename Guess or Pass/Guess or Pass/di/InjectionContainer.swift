@@ -42,6 +42,9 @@ class DependencyContainer {
             let wordsRepository = r.resolve(WordsRepository.self)!
             return HomeViewModel(userRepository: userRepository, wordsRepository: wordsRepository)
         }
+        container.register(GameViewModel.self) { r in
+            return GameViewModel(wordsRepository: r.resolve(WordsRepository.self)!)
+        }
     }
     
     func resolve<T>(_ serviceType: T.Type) -> T? {

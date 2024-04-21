@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct HomeScreen: View {
+    @EnvironmentObject var router: Router
     @ObservedObject var viewModel: HomeViewModel = DependencyContainer.shared.resolve(HomeViewModel.self)!
     
     var body: some View {
         NavigationView {
             ScrollView {
                 VStack {
-                    
                     VStack{
                         HStack {
                             Spacer()
@@ -79,9 +79,21 @@ struct HomeScreen: View {
             }
             .navigationBarHidden(true)
         }
-        .alert(isPresented: $viewModel.showAlert) {
-            Alert(title: Text("Select Category"), message: Text("Please select a category to play."), dismissButton: .default(Text("OK")))
+        .alert(isPresented: $viewModel.showDialog) {
+            if viewModel.showNoCategorySelectedDialog {
+                Alert(title: Text("Select Category"), message: Text("Please select a category to play."), dismissButton: .default(Text("OK")){
+                    viewModel.closeDialog()
+                })
+            }else{
+                Alert(title: Text("Guess or Pass"), message: Text("You've chosen category \(viewModel.selectedCategory?.categoryName ?? ""). Try to guess as many words as you can in one minute. 💪\n\nGood luck! 🍀"), primaryButton: .default(Text("Start game")) {
+                    viewModel.closeDialog()
+                    router.navigate(to: .game)
+                }, secondaryButton: .cancel(Text("Cancel")){
+                    viewModel.closeDialog()
+                })
+            }
         }
+        
         
         VStack {
             Button("Play") {

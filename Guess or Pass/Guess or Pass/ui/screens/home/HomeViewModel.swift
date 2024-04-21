@@ -9,10 +9,12 @@ import Foundation
 import SwiftUI
 
 class HomeViewModel: ObservableObject {
-    @Published var userName: String?
-    @Published var userAvatar: UIImage?
-    @Published var showAlert = false
-    @Published var selectedCategory: WordsCategory? = nil
+    @Published private(set) var userName: String?
+    @Published private(set) var userAvatar: UIImage?
+    @Published private(set) var showNoCategorySelectedDialog = false
+    @Published private(set) var showGameStartDialog = false
+    @Published private(set) var selectedCategory: WordsCategory? = nil
+    @Published var showDialog = false
     
     private let userRepository: UserRepository
     private let wordsRepository: WordsRepository
@@ -39,11 +41,20 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    func onPlayButtonClicked(){
+    func onPlayButtonClicked() {
+        showDialog = true
         if selectedCategory == nil {
-            showAlert = true
+            showGameStartDialog = false
+            showNoCategorySelectedDialog = true
         } else {
-            showAlert = false
+            showNoCategorySelectedDialog = false
+            showGameStartDialog = true
         }
+    }
+    
+    func closeDialog() {
+        showDialog = false
+        showGameStartDialog = false
+        showNoCategorySelectedDialog = false
     }
 }
