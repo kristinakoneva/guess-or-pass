@@ -17,98 +17,98 @@ struct WelcomeScreen: View {
     @State private var isAlertPresented = false
     
     var body: some View {
-        NavigationView {
-            ScrollView {
-                VStack {
+        ScrollView {
+            VStack {
+                
+                Text("Hi! 😄\nWhat's your name?")
+                    .multilineTextAlignment(.center)
+                    .font(.largeTitle)
+                    .padding()
+                
+                TextField("Enter your name", text: $viewModel.nameInput)
+                    .padding()
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                
+                
+                
+                if let selectedImage = selectedImage {
+                    Text("👤 Your avatar will be:")
+                        .padding(.top, 10)
                     
-                    Text("Hi! 😄\nWhat's your name?")
-                        .multilineTextAlignment(.center)
-                        .font(.largeTitle)
-                        .padding()
-                    
-                    TextField("Enter your name", text: $viewModel.nameInput)
-                        .padding()
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                    
-                    
-                    
-                    if let selectedImage = selectedImage {
-                        Text("👤 Your avatar will be:")
-                            .padding(.top, 10)
-                        
-                        Image(uiImage: selectedImage)
-                            .resizable()
-                            .frame(width: 100, height: 100)
+                    Image(uiImage: selectedImage)
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                        .cornerRadius(10)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.blue, lineWidth: 2)
+                        )
+                }
+                
+                Text("Choose your avatar:").padding(.top, 10)
+                
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        self.imagePickerSourceType = .photoLibrary
+                        self.shouldOpenImagePicker = true
+                    }) {
+                        Text("Choose from gallery 🖼️")
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.blue)
                             .cornerRadius(10)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.blue, lineWidth: 2)
-                            )
-                    }
-                    
-                    Text("Choose your avatar:").padding(.top, 10)
-                    
-                    HStack {
-                        Spacer()
-                        Button(action: {
-                            self.imagePickerSourceType = .photoLibrary
-                            self.shouldOpenImagePicker = true
-                        }) {
-                            Text("Choose from gallery 🖼️")
-                                .foregroundColor(.white)
-                                .padding()
-                                .background(Color.blue)
-                                .cornerRadius(10)
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        }
-                        .padding()
-                        
-                        Spacer()
-                        
-                        Button(action: {
-                            self.imagePickerSourceType = .camera
-                            self.shouldOpenImagePicker = true
-                        }) {
-                            Text("Take photo now 📸")
-                                .foregroundColor(.white)
-                                .padding()
-                                .background(Color.blue)
-                                .cornerRadius(10)
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        }
-                        
-                    }
-                    .padding(.bottom, 32)
-                    
-                    Button("Let's play") {
-                        if viewModel.nameInput.isEmpty || selectedImage == nil {
-                            isAlertPresented = true
-                        } else {
-                            saveImageToLocalStorage(image: selectedImage!)
-                            viewModel.saveUserName()
-                            router.navigate(to: .home)
-                        }
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
                     .padding()
-                    .background(Color.green)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        self.imagePickerSourceType = .camera
+                        self.shouldOpenImagePicker = true
+                    }) {
+                        Text("Take photo now 📸")
+                            .foregroundColor(.white)
+                            .padding()
+                            .background(Color.blue)
+                            .cornerRadius(10)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    }
+                    
                 }
-                .padding()
-                .onAppear {
-                    if !viewModel.isNewUser {
+                .padding(.bottom, 32)
+                
+                Button("Let's play") {
+                    if viewModel.nameInput.isEmpty || selectedImage == nil {
+                        isAlertPresented = true
+                    } else {
+                        saveImageToLocalStorage(image: selectedImage!)
+                        viewModel.saveUserName()
                         router.navigate(to: .home)
                     }
                 }
-                .sheet(isPresented: $shouldOpenImagePicker) {
-                    ImagePicker(selectedImage: self.$selectedImage, sourceType: imagePickerSourceType)
-                }.onAppear {
-                    shouldOpenImagePicker = false
+                .padding()
+                .background(Color.green)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+            }
+            .padding()
+            .onAppear {
+                if !viewModel.isNewUser {
+                    router.navigate(to: .home)
                 }
-                .alert(isPresented: $isAlertPresented) {
-                    Alert(title: Text("Please provide input"), message: Text("Name and/or avatar selection are/is missing."), dismissButton: .default(Text("OK")))
-                }
-            }}}
+            }
+            .sheet(isPresented: $shouldOpenImagePicker) {
+                ImagePicker(selectedImage: self.$selectedImage, sourceType: imagePickerSourceType)
+            }.onAppear {
+                shouldOpenImagePicker = false
+            }
+            .alert(isPresented: $isAlertPresented) {
+                Alert(title: Text("Please provide input"), message: Text("Name and/or avatar selection are/is missing."), dismissButton: .default(Text("OK")))
+            }
+        }
+    }
     
     func saveImageToLocalStorage(image: UIImage) {
         if let imageData = image.pngData() {

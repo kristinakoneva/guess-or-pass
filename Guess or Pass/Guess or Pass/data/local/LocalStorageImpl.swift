@@ -10,6 +10,7 @@ import Foundation
 class LocalStorageImpl: LocalStorage {
     private let keyUserName = "userName"
     private let keyUserAvatar = "userAvatar"
+    private let keyGameNavigationType = "gameNavigationType"
     
     func saveUserName(_ name: String) {
         UserDefaults.standard.set(name, forKey: keyUserName)
@@ -25,5 +26,13 @@ class LocalStorageImpl: LocalStorage {
     
     func getUserAvatar() -> Data? {
         return UserDefaults.standard.data(forKey: keyUserAvatar)
+    }
+    
+    func saveGameNavigationType(_ gameNavType: String) {
+        UserDefaults.standard.set(gameNavType, forKey: keyGameNavigationType)
+    }
+    
+    func getGameNavigationType() -> String? {
+        return UserDefaults.standard.string(forKey: keyGameNavigationType)
     }
 }

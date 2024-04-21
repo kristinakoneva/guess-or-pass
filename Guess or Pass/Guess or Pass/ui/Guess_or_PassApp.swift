@@ -23,6 +23,8 @@ struct Guess_or_PassApp: App {
                             HomeScreen().navigationBarBackButtonHidden(true)
                         case .game(let wordsCategory):
                             GameScreen(wordsCategory: wordsCategory).navigationBarBackButtonHidden(true).environmentObject(OrientationInfo())
+                        case .settings:
+                            SettingsScreen()
                         }
                     }
             }

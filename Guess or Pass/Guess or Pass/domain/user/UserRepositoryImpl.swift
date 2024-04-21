@@ -8,6 +8,7 @@
 import Foundation
 
 class UserRepositoryImpl: UserRepository {
+    
     private let localStorage: LocalStorage
     
     init(localStorage: LocalStorage) {
@@ -28,5 +29,13 @@ class UserRepositoryImpl: UserRepository {
     
     func getUserAvatar() -> Data? {
         return localStorage.getUserAvatar()
+    }
+    
+    func saveGameNavigationType(_ gameNavType: GameNavigationType) {
+        localStorage.saveGameNavigationType(gameNavType.rawValue)
+    }
+    
+    func getGameNavigationType() -> GameNavigationType? {
+        return GameNavigationType(rawValue: localStorage.getGameNavigationType() ?? "all")
     }
 }

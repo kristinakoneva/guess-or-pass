@@ -88,25 +88,25 @@ struct GameScreen: View {
     }
     
     func startDeviceMotionUpdates() {
-            guard motionManager.isDeviceMotionAvailable else {
-                print("Device motion is not available")
-                return
-            }
-
-            motionManager.startDeviceMotionUpdates(to: .main) { motion, error in
-                guard let motion = motion else { return }
-                
-                let zAcceleration = motion.userAcceleration.z
-
-                if zAcceleration > 0.5 {
-                    print("Device tilted forward")
-                    viewModel.guessWord()
-                } else if zAcceleration < -0.5 {
-                    print("Device tilted backward")
-                    viewModel.passWord()
-                }
+        guard motionManager.isDeviceMotionAvailable else {
+            print("Device motion is not available")
+            return
+        }
+        
+        motionManager.startDeviceMotionUpdates(to: .main) { motion, error in
+            guard let motion = motion else { return }
+            
+            let zAcceleration = motion.userAcceleration.z
+            
+            if zAcceleration > 0.5 {
+                print("Device tilted forward")
+                viewModel.guessWord()
+            } else if zAcceleration < -0.5 {
+                print("Device tilted backward")
+                viewModel.passWord()
             }
         }
+    }
 }
 
 struct CountdownView: View {

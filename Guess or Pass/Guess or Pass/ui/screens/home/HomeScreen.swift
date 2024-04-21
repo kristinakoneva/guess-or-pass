@@ -12,14 +12,14 @@ struct HomeScreen: View {
     @ObservedObject var viewModel: HomeViewModel = DependencyContainer.shared.resolve(HomeViewModel.self)!
     
     var body: some View {
-        NavigationView {
+        VStack {
             ScrollView {
                 VStack {
                     VStack {
                         HStack {
                             Spacer()
                             Button(action: {
-                                // Handle settings action
+                                router.navigate(to: .settings)
                             }) {
                                 Image(systemName: "gearshape.fill")
                                     .foregroundColor(Color.white)

@@ -13,6 +13,7 @@ final class Router: ObservableObject {
         case welcome
         case home
         case game(wordsCategory: WordsCategory)
+        case settings
     }
     
     @Published var navPath = NavigationPath()

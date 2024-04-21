@@ -12,4 +12,6 @@ protocol LocalStorage {
     func getUserName() -> String?
     func saveUserAvatar(_ avatar: Data)
     func getUserAvatar() -> Data?
+    func saveGameNavigationType(_ gameNavType: String)
+    func getGameNavigationType() -> String?
 }
