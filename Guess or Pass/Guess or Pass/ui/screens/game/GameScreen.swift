@@ -81,6 +81,8 @@ struct GameScreen: View {
                     if gameNavType == GameNavigationType.tilt || gameNavType == GameNavigationType.all {
                         startDeviceMotionUpdates()
                     }
+                }.onDisappear{
+                    motionManager.stopDeviceMotionUpdates()
                 }
             } else {
                 CountdownView() {
