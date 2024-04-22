@@ -11,12 +11,15 @@ import SwiftUI
 class SettingsViewModel: ObservableObject {
     private let userRepository: UserRepository
     
-    @Published private(set) var name: String? = nil
+    @Published var name: String = ""
     @Published private(set) var avatar: UIImage? = nil
     @Published private(set) var bestScore: Int? = nil
     @Published private(set) var isGameNavTypeSheetShown = false
+    @Published private(set) var isNameChangeSheetShown = false
+    
     
     @Published var isActionSheetPresented = false
+    @Published var isSheetPresented = false
     
     let settingsItems: [SettingsItem] = [
             .changeName,
@@ -27,14 +30,15 @@ class SettingsViewModel: ObservableObject {
     
     init(userRepository: UserRepository) {
         self.userRepository = userRepository
-        self.name = userRepository.getUserName()
+        self.name = userRepository.getUserName() ?? ""
         self.avatar = UIImage(data: userRepository.getUserAvatar()!)
     }
 
     func onSettingsActionClicked(action: SettingsAction) {
         switch action {
         case .changeName:
-            // Handle change name action
+            self.isSheetPresented = true
+            self.isNameChangeSheetShown = true
             break
         case .changeAvatar:
             // Handle change avatar action
@@ -57,5 +61,12 @@ class SettingsViewModel: ObservableObject {
     func saveGameNavTypeChoice(navType: GameNavigationType) {
         closeActionSheet()
         userRepository.saveGameNavigationType(navType)
+    }
+    
+    func saveNewName(newName: String) {
+        userRepository.saveUserName(newName)
+        self.name = newName
+        isSheetPresented = false
+        isNameChangeSheetShown = false
     }
 }

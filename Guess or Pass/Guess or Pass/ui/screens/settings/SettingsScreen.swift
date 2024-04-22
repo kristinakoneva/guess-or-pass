@@ -20,16 +20,15 @@ struct SettingsScreen: View {
                         .clipShape(Circle())
                 }
                 
-                if let name = viewModel.name {
-                    Text(name)
-                        .font(.title)
-                        .padding()
-                }
+                Text(viewModel.name)
+                    .font(.title)
+                    .padding()
+                
                 Spacer()
             }
             
             if let bestScore = viewModel.bestScore {
-                Text("Best Score: \(bestScore)")
+                Text("Best score: \(bestScore)")
                     .font(.headline)
                     .padding()
             }
@@ -43,6 +42,15 @@ struct SettingsScreen: View {
             }.padding(.top, 32)
         }
         .padding(.horizontal, 32)
+        .sheet(isPresented: $viewModel.isSheetPresented) {
+            if viewModel.isNameChangeSheetShown {
+                NameChangeSheet(newName: $viewModel.name, onSuccess: {
+                    newName in viewModel.saveNewName(newName: newName)
+                })
+            }
+            // TODO: Implement other sheets
+            
+        }
         .actionSheet(isPresented: $viewModel.isActionSheetPresented, content: {
             if viewModel.isGameNavTypeSheetShown {
                 return ActionSheet(title: Text("Choose game navigation type"), buttons: [
@@ -63,7 +71,6 @@ struct SettingsScreen: View {
         })
     }
 }
-
 
 #Preview {
     SettingsScreen()
