@@ -20,9 +20,11 @@ class GameViewModel: ObservableObject {
     private var currentWordIndex: Int = 0
     
     private let wordsRepository: WordsRepository
+    private let userRepository: UserRepository
     
-    init(wordsRepository: WordsRepository) {
+    init(wordsRepository: WordsRepository, userRepository: UserRepository) {
         self.wordsRepository = wordsRepository
+        self.userRepository = userRepository
     }
     
     func fetchWords(for category: WordsCategory) {
@@ -83,6 +85,14 @@ class GameViewModel: ObservableObject {
     
     func endGame() {
         showGameEndDialog = true
+        let currentBestScore = userRepository.getBestScore()
+        if currentBestScore == nil {
+            userRepository.saveBestScore(guessedWordsCount)
+        } else {
+            if currentBestScore! < guessedWordsCount {
+                userRepository.saveBestScore(guessedWordsCount)
+            }
+        }
     }
     
     func filterAndShuffleWords() {

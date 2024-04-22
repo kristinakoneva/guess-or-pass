@@ -28,9 +28,12 @@ struct SettingsScreen: View {
             }
             
             if let bestScore = viewModel.bestScore {
-                Text("Best score: \(bestScore)")
-                    .font(.headline)
-                    .padding()
+                HStack {
+                    Text("Best score 💪: \(bestScore) words/min")
+                        .font(.headline)
+                        .padding()
+                    Spacer()
+                }
             }
             
             VStack {

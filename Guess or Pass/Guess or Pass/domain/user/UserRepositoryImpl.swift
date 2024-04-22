@@ -8,7 +8,6 @@
 import Foundation
 
 class UserRepositoryImpl: UserRepository {
-    
     private let localStorage: LocalStorage
     
     init(localStorage: LocalStorage) {
@@ -37,5 +36,13 @@ class UserRepositoryImpl: UserRepository {
     
     func getGameNavigationType() -> GameNavigationType {
         return GameNavigationType(rawValue: localStorage.getGameNavigationType() ?? "all") ?? GameNavigationType.all
+    }
+    
+    func saveBestScore(_ bestScore: Int) {
+        localStorage.saveBestScore(bestScore)
+    }
+    
+    func getBestScore() -> Int? {
+        return localStorage.getBestScore()
     }
 }

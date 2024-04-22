@@ -11,6 +11,7 @@ class LocalStorageImpl: LocalStorage {
     private let keyUserName = "userName"
     private let keyUserAvatar = "userAvatar"
     private let keyGameNavigationType = "gameNavigationType"
+    private let keyBestScore = "bestScore"
     
     func saveUserName(_ name: String) {
         UserDefaults.standard.set(name, forKey: keyUserName)
@@ -34,5 +35,13 @@ class LocalStorageImpl: LocalStorage {
     
     func getGameNavigationType() -> String? {
         return UserDefaults.standard.string(forKey: keyGameNavigationType)
+    }
+    
+    func saveBestScore(_ bestScore: Int) {
+        UserDefaults.standard.set(bestScore, forKey: keyBestScore)
+    }
+    
+    func getBestScore() -> Int? {
+        return UserDefaults.standard.integer(forKey: keyBestScore)
     }
 }

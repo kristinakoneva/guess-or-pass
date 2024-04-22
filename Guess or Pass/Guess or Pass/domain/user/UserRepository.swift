@@ -14,4 +14,6 @@ protocol UserRepository {
     func getUserAvatar() -> Data?
     func saveGameNavigationType(_ gameNavType: GameNavigationType)
     func getGameNavigationType() -> GameNavigationType
+    func saveBestScore(_ bestScore: Int)
+    func getBestScore() -> Int?
 }

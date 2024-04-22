@@ -38,12 +38,12 @@ class DependencyContainer {
             return WelcomeViewModel(userRepository: r.resolve(UserRepository.self)!)
         }
         container.register(HomeViewModel.self) { r in
-            let userRepository = r.resolve(UserRepository.self)!
-            let wordsRepository = r.resolve(WordsRepository.self)!
-            return HomeViewModel(userRepository: userRepository, wordsRepository: wordsRepository)
+            return HomeViewModel(userRepository: r.resolve(UserRepository.self)!)
         }
         container.register(GameViewModel.self) { r in
-            return GameViewModel(wordsRepository: r.resolve(WordsRepository.self)!)
+            let wordsRepository = r.resolve(WordsRepository.self)!
+            let userRepository = r.resolve(UserRepository.self)!
+            return GameViewModel(wordsRepository: wordsRepository, userRepository: userRepository)
         }
         container.register(SettingsViewModel.self) { r in
             return SettingsViewModel(userRepository: r.resolve(UserRepository.self)!)

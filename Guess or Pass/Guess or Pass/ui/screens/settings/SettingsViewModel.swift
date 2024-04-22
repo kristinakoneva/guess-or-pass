@@ -32,6 +32,7 @@ class SettingsViewModel: ObservableObject {
         self.userRepository = userRepository
         self.name = userRepository.getUserName() ?? ""
         self.avatar = UIImage(data: userRepository.getUserAvatar()!)
+        self.bestScore = userRepository.getBestScore()
     }
 
     func onSettingsActionClicked(action: SettingsAction) {

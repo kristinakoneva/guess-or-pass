@@ -18,13 +18,11 @@ class HomeViewModel: ObservableObject {
     @Published var showDialog = false
     
     private let userRepository: UserRepository
-    private let wordsRepository: WordsRepository
     
     var categories: [WordsCategory] = [.animals, .food, .sports, .technology, .music, .nature]
     
-    init(userRepository: UserRepository, wordsRepository: WordsRepository) {
+    init(userRepository: UserRepository) {
         self.userRepository = userRepository
-        self.wordsRepository = wordsRepository
         
         fetchUserData()
     }
