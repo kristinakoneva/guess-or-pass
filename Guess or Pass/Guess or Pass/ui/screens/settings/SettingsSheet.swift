@@ -10,4 +10,5 @@ enum SettingsSheet {
     case instructions
     case galleryImagePicker
     case cameraImagePicker
+    case setReminder
 }

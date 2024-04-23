@@ -64,6 +64,8 @@ struct SettingsScreen: View {
                 ImagePicker(selectedImage: $selectedImage, sourceType: .photoLibrary)
             case .cameraImagePicker:
                 ImagePicker(selectedImage: $selectedImage, sourceType: .camera)
+            case .setReminder:
+                VStack {}
             case .none:
                 VStack {}
             }

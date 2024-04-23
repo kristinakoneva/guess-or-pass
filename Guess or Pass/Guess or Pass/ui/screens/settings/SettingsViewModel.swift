@@ -23,8 +23,9 @@ class SettingsViewModel: ObservableObject {
     let settingsItems: [SettingsItem] = [
         .changeName,
         .changeAvatar,
+        .readInstructions,
         .changeGameNavigation,
-        .readInstructions
+        .setReminder
     ]
     
     init(userRepository: UserRepository) {
@@ -52,6 +53,9 @@ class SettingsViewModel: ObservableObject {
             self.settingsSheet = .instructions
             self.isSheetPresented = true
             break
+        case .setReminder:
+            self.settingsSheet = .setReminder
+            self.isSheetPresented = true
         }
     }
     

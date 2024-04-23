@@ -10,4 +10,5 @@ enum SettingsAction {
     case changeAvatar
     case readInstructions
     case changeGameNavigation
+    case setReminder
 }

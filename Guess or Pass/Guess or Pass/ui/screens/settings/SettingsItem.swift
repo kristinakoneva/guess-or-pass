@@ -10,6 +10,7 @@ enum SettingsItem {
     case changeAvatar
     case changeGameNavigation
     case readInstructions
+    case setReminder
     
     var iconName: String {
         switch self {
@@ -21,7 +22,10 @@ enum SettingsItem {
             return "gamecontroller"
         case .readInstructions:
             return "book"
+        case .setReminder:
+            return "bell.badge.fill"
         }
+        
     }
     
     var title: String {
@@ -34,6 +38,8 @@ enum SettingsItem {
             return "Change game navigation"
         case .readInstructions:
             return "Read instructions"
+        case .setReminder:
+            return "Set reminder"
         }
     }
     
@@ -47,6 +53,8 @@ enum SettingsItem {
             return SettingsAction.readInstructions
         case .changeGameNavigation:
             return SettingsAction.changeGameNavigation
+        case .setReminder:
+            return SettingsAction.setReminder
         }
     }
 }
