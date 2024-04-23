@@ -35,6 +35,9 @@
 		CF0A93AD2BD5C65C00FBC32A /* SettingsListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A93AC2BD5C65C00FBC32A /* SettingsListItem.swift */; };
 		CF0A93AF2BD7185300FBC32A /* NameChangeSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A93AE2BD7185300FBC32A /* NameChangeSheet.swift */; };
 		CF0A93B12BD85A1600FBC32A /* InstructionsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A93B02BD85A1600FBC32A /* InstructionsSheet.swift */; };
+		CF0A93B32BD86D7900FBC32A /* SettingsAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A93B22BD86D7900FBC32A /* SettingsAction.swift */; };
+		CF0A93B52BD86D9F00FBC32A /* SettingsActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A93B42BD86D9F00FBC32A /* SettingsActionSheet.swift */; };
+		CF0A93B72BD86DE600FBC32A /* SettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A93B62BD86DE600FBC32A /* SettingsSheet.swift */; };
 		CF1B09A12BD3D731001742A1 /* Guess_or_PassApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1B09A02BD3D731001742A1 /* Guess_or_PassApp.swift */; };
 		CF1B09A32BD3D731001742A1 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1B09A22BD3D731001742A1 /* HomeScreen.swift */; };
 		CF1B09A52BD3D733001742A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF1B09A42BD3D733001742A1 /* Assets.xcassets */; };
@@ -100,6 +103,9 @@
 		CF0A93AC2BD5C65C00FBC32A /* SettingsListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsListItem.swift; sourceTree = "<group>"; };
 		CF0A93AE2BD7185300FBC32A /* NameChangeSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameChangeSheet.swift; sourceTree = "<group>"; };
 		CF0A93B02BD85A1600FBC32A /* InstructionsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsSheet.swift; sourceTree = "<group>"; };
+		CF0A93B22BD86D7900FBC32A /* SettingsAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAction.swift; sourceTree = "<group>"; };
+		CF0A93B42BD86D9F00FBC32A /* SettingsActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsActionSheet.swift; sourceTree = "<group>"; };
+		CF0A93B62BD86DE600FBC32A /* SettingsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSheet.swift; sourceTree = "<group>"; };
 		CF1B099D2BD3D731001742A1 /* Guess or Pass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Guess or Pass.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF1B09A02BD3D731001742A1 /* Guess_or_PassApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guess_or_PassApp.swift; sourceTree = "<group>"; };
 		CF1B09A22BD3D731001742A1 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
@@ -265,6 +271,9 @@
 				CF0A939F2BD5B2F100FBC32A /* SettingsScreen.swift */,
 				CF0A93A32BD5B30B00FBC32A /* SettingsViewModel.swift */,
 				CF0A93A52BD5BC2600FBC32A /* SettingsItem.swift */,
+				CF0A93B22BD86D7900FBC32A /* SettingsAction.swift */,
+				CF0A93B42BD86D9F00FBC32A /* SettingsActionSheet.swift */,
+				CF0A93B62BD86DE600FBC32A /* SettingsSheet.swift */,
 			);
 			path = settings;
 			sourceTree = "<group>";
@@ -663,6 +672,8 @@
 				CF0A938E2BD44C9400FBC32A /* WordsCategoryView.swift in Sources */,
 				CF0A93802BD43F8200FBC32A /* WordsCategoryRequest.swift in Sources */,
 				CF4F52462BD3E7F900CA9009 /* WelcomeViewModel.swift in Sources */,
+				CF0A93B52BD86D9F00FBC32A /* SettingsActionSheet.swift in Sources */,
+				CF0A93B72BD86DE600FBC32A /* SettingsSheet.swift in Sources */,
 				CF0A93AD2BD5C65C00FBC32A /* SettingsListItem.swift in Sources */,
 				CF0A938A2BD4412500FBC32A /* WordsCategory.swift in Sources */,
 				CF0A93822BD4401F00FBC32A /* DatamuseWord.swift in Sources */,
@@ -682,6 +693,7 @@
 				CF0A93942BD533A900FBC32A /* GameScreen.swift in Sources */,
 				CF0A93872BD440DD00FBC32A /* WordsRepositoryImpl.swift in Sources */,
 				CF0A93AF2BD7185300FBC32A /* NameChangeSheet.swift in Sources */,
+				CF0A93B32BD86D7900FBC32A /* SettingsAction.swift in Sources */,
 				CF0A93A62BD5BC2600FBC32A /* SettingsItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

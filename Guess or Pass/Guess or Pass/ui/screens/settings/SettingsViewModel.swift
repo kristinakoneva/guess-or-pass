@@ -14,14 +14,9 @@ class SettingsViewModel: ObservableObject {
     @Published var name: String = ""
     @Published private(set) var avatar: UIImage? = nil
     @Published private(set) var bestScore: Int? = nil
-    @Published private(set) var isGameNavTypeActionSheetShown = false
-    @Published private(set) var isAvatarChangeActionSheetShown = false
-    @Published private(set) var isNameChangeSheetShown = false
-    @Published private(set) var isInstructionsSheetShown = false
-    @Published private(set) var isPhotoGalleryImagePickerShown = false
-    @Published private(set) var isCameraImagePickerShown = false
     
-    
+    @Published private(set) var settingsActionSheet: SettingsActionSheet? = nil
+    @Published private(set) var settingsSheet: SettingsSheet? = nil
     @Published var isActionSheetPresented = false
     @Published var isSheetPresented = false
     
@@ -42,19 +37,19 @@ class SettingsViewModel: ObservableObject {
     func onSettingsActionClicked(action: SettingsAction) {
         switch action {
         case .changeName:
-            self.isNameChangeSheetShown = true
+            self.settingsSheet = .nameChange
             self.isSheetPresented = true
             break
         case .changeAvatar:
-            self.isAvatarChangeActionSheetShown = true
+            self.settingsActionSheet = .avatarChange
             self.isActionSheetPresented = true
             break
         case .changeGameNavigation:
-            self.isGameNavTypeActionSheetShown = true
+            self.settingsActionSheet = .gameNavType
             self.isActionSheetPresented = true
             break
         case .readInstructions:
-            self.isInstructionsSheetShown = true
+            self.settingsSheet = .instructions
             self.isSheetPresented = true
             break
         }
@@ -69,7 +64,7 @@ class SettingsViewModel: ObservableObject {
         userRepository.saveUserName(newName)
         self.name = newName
         isSheetPresented = false
-        isNameChangeSheetShown = false
+        settingsSheet = nil
     }
     
     func saveNewAvatar(newAvatar: UIImage?){
@@ -82,24 +77,20 @@ class SettingsViewModel: ObservableObject {
     
     func openImagePicker(sourceType: UIImagePickerController.SourceType) {
         if sourceType == .photoLibrary {
-            isPhotoGalleryImagePickerShown = true
+            settingsSheet = .galleryImagePicker
         } else {
-            isCameraImagePickerShown = true
+            settingsSheet = .cameraImagePicker
         }
         isSheetPresented = true
     }
     
     func closeSheet() {
         self.isSheetPresented = false
-        self.isNameChangeSheetShown = false
-        self.isInstructionsSheetShown = false
-        self.isPhotoGalleryImagePickerShown = false
-        self.isCameraImagePickerShown = false
+        self.settingsSheet = nil
     }
     
     func closeActionSheet() {
         self.isActionSheetPresented = false
-        self.isGameNavTypeActionSheetShown = false
-        self.isAvatarChangeActionSheetShown = false
+        self.settingsActionSheet = nil
     }
 }

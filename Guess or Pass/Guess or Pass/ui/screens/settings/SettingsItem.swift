@@ -50,11 +50,3 @@ enum SettingsItem {
         }
     }
 }
-
-enum SettingsAction {
-    case changeName
-    case changeAvatar
-    case readInstructions
-    case changeGameNavigation
-}
-

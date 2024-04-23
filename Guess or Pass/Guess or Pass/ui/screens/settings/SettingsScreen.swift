@@ -47,55 +47,62 @@ struct SettingsScreen: View {
         }
         .padding(.horizontal, 32)
         .sheet(isPresented: $viewModel.isSheetPresented, onDismiss: {
-            if viewModel.isPhotoGalleryImagePickerShown || viewModel.isCameraImagePickerShown {
+            if viewModel.settingsSheet == .galleryImagePicker || viewModel.settingsSheet == .cameraImagePicker {
                 viewModel.saveNewAvatar(newAvatar: selectedImage)
                 selectedImage = nil
             }
             viewModel.closeSheet()
         }) {
-            if viewModel.isNameChangeSheetShown {
+            switch viewModel.settingsSheet {
+            case .nameChange:
                 NameChangeSheet(newName: $viewModel.name, onSuccess: {
                     newName in viewModel.saveNewName(newName: newName)
                 })
-            }
-            
-            if viewModel.isInstructionsSheetShown {
+            case .instructions:
                 InstructionsSheet()
-            }
-            
-            if viewModel.isPhotoGalleryImagePickerShown {
+            case .galleryImagePicker:
                 ImagePicker(selectedImage: $selectedImage, sourceType: .photoLibrary)
-            }
-            
-            if viewModel.isCameraImagePickerShown {
+            case .cameraImagePicker:
                 ImagePicker(selectedImage: $selectedImage, sourceType: .camera)
+            case .none:
+                VStack {}
             }
         }
         .actionSheet(isPresented: $viewModel.isActionSheetPresented, content: {
-            if viewModel.isGameNavTypeActionSheetShown {
-                return ActionSheet(title: Text("Choose game navigation type"), buttons: [
-                    .default(Text("Button clicks")) { viewModel.saveGameNavTypeChoice(navType: GameNavigationType.buttons) },
-                    .default(Text("Phone tilting")) { viewModel.saveGameNavTypeChoice(navType: GameNavigationType.tilt) },
-                    .default(Text("Both buttons and tilts")) { viewModel.saveGameNavTypeChoice(navType: GameNavigationType.all) },
-                    .cancel {
-                        viewModel.closeActionSheet()
-                    }
-                ])
-            } else {
-                return ActionSheet(title: Text("Change avatar"), buttons: [
-                    .default(Text("Choose photo from gallery")) {
-                        viewModel.openImagePicker(sourceType:.photoLibrary)
-                    },
-                    .default(Text("Take a photo")) {
-                        viewModel.openImagePicker(sourceType:.camera)
-                    },
-                    .cancel {
-                        viewModel.closeActionSheet()
-                    }
-                ])
+            switch viewModel.settingsActionSheet {
+            case .gameNavType:
+                showGameNavTypeActionSheet()
+            case .avatarChange:
+                showAvatarChangeActionSheet()
+            case .none:
+                showGameNavTypeActionSheet()
             }
-            
         })
+    }
+    
+    func showGameNavTypeActionSheet() -> ActionSheet{
+        return ActionSheet(title: Text("Choose game navigation type"), buttons: [
+            .default(Text("Button clicks")) { viewModel.saveGameNavTypeChoice(navType: GameNavigationType.buttons) },
+            .default(Text("Phone tilting")) { viewModel.saveGameNavTypeChoice(navType: GameNavigationType.tilt) },
+            .default(Text("Both buttons and tilts")) { viewModel.saveGameNavTypeChoice(navType: GameNavigationType.all) },
+            .cancel {
+                viewModel.closeActionSheet()
+            }
+        ])
+    }
+    
+    func showAvatarChangeActionSheet() -> ActionSheet {
+        return ActionSheet(title: Text("Change avatar"), buttons: [
+            .default(Text("Choose photo from gallery")) {
+                viewModel.openImagePicker(sourceType:.photoLibrary)
+            },
+            .default(Text("Take a photo")) {
+                viewModel.openImagePicker(sourceType:.camera)
+            },
+            .cancel {
+                viewModel.closeActionSheet()
+            }
+        ])
     }
 }
 
