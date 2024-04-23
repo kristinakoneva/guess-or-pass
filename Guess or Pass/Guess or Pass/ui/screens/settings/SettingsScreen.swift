@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SettingsScreen: View {
     @ObservedObject var viewModel: SettingsViewModel = DependencyContainer.shared.resolve(SettingsViewModel.self)!
+    @State private var selectedImage: UIImage?
     
     var body: some View {
         ScrollView {
@@ -46,6 +47,10 @@ struct SettingsScreen: View {
         }
         .padding(.horizontal, 32)
         .sheet(isPresented: $viewModel.isSheetPresented, onDismiss: {
+            if viewModel.isPhotoGalleryImagePickerShown || viewModel.isCameraImagePickerShown {
+                viewModel.saveNewAvatar(newAvatar: selectedImage)
+                selectedImage = nil
+            }
             viewModel.closeSheet()
         }) {
             if viewModel.isNameChangeSheetShown {
@@ -56,6 +61,14 @@ struct SettingsScreen: View {
             
             if viewModel.isInstructionsSheetShown {
                 InstructionsSheet()
+            }
+            
+            if viewModel.isPhotoGalleryImagePickerShown {
+                ImagePicker(selectedImage: $selectedImage, sourceType: .photoLibrary)
+            }
+            
+            if viewModel.isCameraImagePickerShown {
+                ImagePicker(selectedImage: $selectedImage, sourceType: .camera)
             }
         }
         .actionSheet(isPresented: $viewModel.isActionSheetPresented, content: {
@@ -68,14 +81,19 @@ struct SettingsScreen: View {
                         viewModel.closeActionSheet()
                     }
                 ])
+            } else {
+                return ActionSheet(title: Text("Change avatar"), buttons: [
+                    .default(Text("Choose photo from gallery")) {
+                        viewModel.openImagePicker(sourceType:.photoLibrary)
+                    },
+                    .default(Text("Take a photo")) {
+                        viewModel.openImagePicker(sourceType:.camera)
+                    },
+                    .cancel {
+                        viewModel.closeActionSheet()
+                    }
+                ])
             }
-            // TODO: Implement other sheets
-            return ActionSheet(title: Text("Choose game navigation type"), buttons: [
-                .default(Text("Button clicks")) { },
-                .default(Text("Phone tilting")) {  },
-                .default(Text("Both buttons and tilts")) { },
-                .cancel()
-            ])
             
         })
     }

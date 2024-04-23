@@ -15,8 +15,11 @@ class SettingsViewModel: ObservableObject {
     @Published private(set) var avatar: UIImage? = nil
     @Published private(set) var bestScore: Int? = nil
     @Published private(set) var isGameNavTypeActionSheetShown = false
+    @Published private(set) var isAvatarChangeActionSheetShown = false
     @Published private(set) var isNameChangeSheetShown = false
     @Published private(set) var isInstructionsSheetShown = false
+    @Published private(set) var isPhotoGalleryImagePickerShown = false
+    @Published private(set) var isCameraImagePickerShown = false
     
     
     @Published var isActionSheetPresented = false
@@ -39,11 +42,12 @@ class SettingsViewModel: ObservableObject {
     func onSettingsActionClicked(action: SettingsAction) {
         switch action {
         case .changeName:
-            self.isSheetPresented = true
             self.isNameChangeSheetShown = true
+            self.isSheetPresented = true
             break
         case .changeAvatar:
-            // Handle change avatar action
+            self.isAvatarChangeActionSheetShown = true
+            self.isActionSheetPresented = true
             break
         case .changeGameNavigation:
             self.isGameNavTypeActionSheetShown = true
@@ -68,14 +72,34 @@ class SettingsViewModel: ObservableObject {
         isNameChangeSheetShown = false
     }
     
+    func saveNewAvatar(newAvatar: UIImage?){
+        if newAvatar != nil {
+            userRepository.saveUserAvatar(newAvatar!.pngData()!)
+            avatar = newAvatar
+        }
+        closeActionSheet()
+    }
+    
+    func openImagePicker(sourceType: UIImagePickerController.SourceType) {
+        if sourceType == .photoLibrary {
+            isPhotoGalleryImagePickerShown = true
+        } else {
+            isCameraImagePickerShown = true
+        }
+        isSheetPresented = true
+    }
+    
     func closeSheet() {
         self.isSheetPresented = false
         self.isNameChangeSheetShown = false
         self.isInstructionsSheetShown = false
+        self.isPhotoGalleryImagePickerShown = false
+        self.isCameraImagePickerShown = false
     }
     
     func closeActionSheet() {
         self.isActionSheetPresented = false
         self.isGameNavTypeActionSheetShown = false
+        self.isAvatarChangeActionSheetShown = false
     }
 }
