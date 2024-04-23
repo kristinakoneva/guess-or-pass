@@ -45,22 +45,28 @@ struct SettingsScreen: View {
             }.padding(.top, 32)
         }
         .padding(.horizontal, 32)
-        .sheet(isPresented: $viewModel.isSheetPresented) {
+        .sheet(isPresented: $viewModel.isSheetPresented, onDismiss: {
+            viewModel.closeSheet()
+        }) {
             if viewModel.isNameChangeSheetShown {
                 NameChangeSheet(newName: $viewModel.name, onSuccess: {
                     newName in viewModel.saveNewName(newName: newName)
                 })
             }
-            // TODO: Implement other sheets
             
+            if viewModel.isInstructionsSheetShown {
+                InstructionsSheet()
+            }
         }
         .actionSheet(isPresented: $viewModel.isActionSheetPresented, content: {
-            if viewModel.isGameNavTypeSheetShown {
+            if viewModel.isGameNavTypeActionSheetShown {
                 return ActionSheet(title: Text("Choose game navigation type"), buttons: [
                     .default(Text("Button clicks")) { viewModel.saveGameNavTypeChoice(navType: GameNavigationType.buttons) },
                     .default(Text("Phone tilting")) { viewModel.saveGameNavTypeChoice(navType: GameNavigationType.tilt) },
                     .default(Text("Both buttons and tilts")) { viewModel.saveGameNavTypeChoice(navType: GameNavigationType.all) },
-                    .cancel()
+                    .cancel {
+                        viewModel.closeActionSheet()
+                    }
                 ])
             }
             // TODO: Implement other sheets

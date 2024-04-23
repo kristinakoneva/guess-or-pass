@@ -14,19 +14,20 @@ class SettingsViewModel: ObservableObject {
     @Published var name: String = ""
     @Published private(set) var avatar: UIImage? = nil
     @Published private(set) var bestScore: Int? = nil
-    @Published private(set) var isGameNavTypeSheetShown = false
+    @Published private(set) var isGameNavTypeActionSheetShown = false
     @Published private(set) var isNameChangeSheetShown = false
+    @Published private(set) var isInstructionsSheetShown = false
     
     
     @Published var isActionSheetPresented = false
     @Published var isSheetPresented = false
     
     let settingsItems: [SettingsItem] = [
-            .changeName,
-            .changeAvatar,
-            .changeGameNavigation,
-            .readInstructions
-        ]
+        .changeName,
+        .changeAvatar,
+        .changeGameNavigation,
+        .readInstructions
+    ]
     
     init(userRepository: UserRepository) {
         self.userRepository = userRepository
@@ -34,7 +35,7 @@ class SettingsViewModel: ObservableObject {
         self.avatar = UIImage(data: userRepository.getUserAvatar()!)
         self.bestScore = userRepository.getBestScore()
     }
-
+    
     func onSettingsActionClicked(action: SettingsAction) {
         switch action {
         case .changeName:
@@ -45,18 +46,14 @@ class SettingsViewModel: ObservableObject {
             // Handle change avatar action
             break
         case .changeGameNavigation:
-            self.isGameNavTypeSheetShown = true
+            self.isGameNavTypeActionSheetShown = true
             self.isActionSheetPresented = true
             break
         case .readInstructions:
-            // Handle read instructions action
+            self.isInstructionsSheetShown = true
+            self.isSheetPresented = true
             break
         }
-    }
-    
-    private func closeActionSheet() {
-        self.isGameNavTypeSheetShown = false
-        self.isActionSheetPresented = false
     }
     
     func saveGameNavTypeChoice(navType: GameNavigationType) {
@@ -69,5 +66,16 @@ class SettingsViewModel: ObservableObject {
         self.name = newName
         isSheetPresented = false
         isNameChangeSheetShown = false
+    }
+    
+    func closeSheet() {
+        self.isSheetPresented = false
+        self.isNameChangeSheetShown = false
+        self.isInstructionsSheetShown = false
+    }
+    
+    func closeActionSheet() {
+        self.isActionSheetPresented = false
+        self.isGameNavTypeActionSheetShown = false
     }
 }

@@ -16,7 +16,7 @@ struct SettingsListItem: View {
     var body: some View {
             HStack {
                 Image(systemName: iconName)
-                    .foregroundColor(.blue)
+                    .foregroundColor(.blue).frame(width: 32, height: 32)
                 Text(text)
                 Spacer()
                 Image(systemName: "chevron.compact.right")
