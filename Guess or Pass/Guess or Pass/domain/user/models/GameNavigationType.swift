@@ -9,6 +9,7 @@ import Foundation
 
 enum GameNavigationType: String, Codable {
     case buttons
-    case tilt
+    case swipes
+    case tilts
     case all
 }

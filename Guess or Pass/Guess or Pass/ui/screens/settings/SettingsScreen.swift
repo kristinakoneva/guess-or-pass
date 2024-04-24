@@ -85,8 +85,9 @@ struct SettingsScreen: View {
     func showGameNavTypeActionSheet() -> ActionSheet{
         return ActionSheet(title: Text("Choose game navigation type"), buttons: [
             .default(Text("Button clicks")) { viewModel.saveGameNavTypeChoice(navType: GameNavigationType.buttons) },
-            .default(Text("Phone tilting")) { viewModel.saveGameNavTypeChoice(navType: GameNavigationType.tilt) },
-            .default(Text("Both buttons and tilts")) { viewModel.saveGameNavTypeChoice(navType: GameNavigationType.all) },
+            .default(Text("Swipe gestures")) { viewModel.saveGameNavTypeChoice(navType: GameNavigationType.swipes) },
+            .default(Text("Phone tilting")) { viewModel.saveGameNavTypeChoice(navType: GameNavigationType.tilts) },
+            .default(Text("Enable all")) { viewModel.saveGameNavTypeChoice(navType: GameNavigationType.all) },
             .cancel {
                 viewModel.closeActionSheet()
             }

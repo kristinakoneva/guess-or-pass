@@ -81,12 +81,23 @@ struct GameScreen: View {
                         router.navigateBack()
                     }))
                 }.onAppear {
-                    if gameNavType == GameNavigationType.tilt || gameNavType == GameNavigationType.all {
+                    if gameNavType == .tilts || gameNavType == .all {
                         startDeviceMotionUpdates()
                     }
                 }.onDisappear {
                     motionManager.stopDeviceMotionUpdates()
-                }
+                }.gesture(
+                    DragGesture()
+                        .onEnded { gesture in
+                            if gameNavType == .swipes || gameNavType == .all {
+                                if gesture.translation.width > 0 {
+                                    viewModel.guessWord()
+                                } else {
+                                    viewModel.passWord()
+                                }
+                            }
+                        }
+                )
             } else {
                 CountdownView() {
                     viewModel.startGame()
