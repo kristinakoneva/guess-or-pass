@@ -4,7 +4,7 @@ _Developed by: Kristina Koneva (student index number: 201513)_
 ## Overview
 Guess or Pass is an iOS mobile application developed in Swift as the programming language of choice and SwiftUI as a suitable modern UI framework.
 
-It's a multiplayer game where one lucky individual takes on the role of the guesser, while others act as the clue-givers, providing hints to help the guesser identify the correct word. The objective is to guess as many words as possible from the selected category in the duration of one minute. Users can choose one of the following categories: animals, food, sports, technology, music and nature. There are several options about navigating throughout the game play - users can use button clicks, swipe gestures or phone tilts to guess or pass a certain word.
+It's a multiplayer game where one lucky individual takes on the role of the guesser, while others act as the clue-givers, providing hints to help the guesser identify the correct word. The objective is to guess as many words as possible from the selected category in the duration of one minute. Users can choose one of the following categories: animals, food, sports, technology, music and nature. There are several options about navigating throughout the game play - users can use button clicks, swipe gestures or phone tilts to guess or pass a certain word. Additionally, users can set reminders for their game nights or similar events and they will recieve a notification with the time and place.
 
 The app supports both portrait and landscape mode.
 
@@ -30,9 +30,29 @@ The UI layer is simply what the user sees on the screen. Each screen consists of
 
 ## Dependency Injection
 
-Description to be added.
+[Swinject](https://github.com/Swinject/Swinject) is used for dependency injection. [`InjectionContainer.swift`](https://github.com/kristinakoneva/guess-or-pass/blob/main/Guess%20or%20Pass/Guess%20or%20Pass/di/InjectionContainer.swift) provides all data sources, repositories, view models and the [`CMMotionManager`](https://developer.apple.com/documentation/coremotion/cmmotionmanager).
 
 ## Networking
 
-Description to be added.
+The [Alamofire](https://github.com/Alamofire/Alamofire) HTTP networking library is used for making the API requests towards the [Datamuse API](https://www.datamuse.com/api/). 
+
+## Screens and Features
+
+### Welcome Screen
+Description and screenshot to be added.
+
+### Home Screen
+Description and screenshot to be added.
+
+### Game Screen
+Description and screenshot to be added.
+
+### Settings Screen
+Description and screenshot to be added.
+
+- Change name
+- Change avatar
+- Read instructions
+- Change game navigation
+- Set reminder
 
