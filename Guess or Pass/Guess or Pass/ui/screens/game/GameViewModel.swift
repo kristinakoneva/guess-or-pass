@@ -13,6 +13,7 @@ class GameViewModel: ObservableObject {
     @Published private(set) var currentWord: String = ""
     @Published private(set) var guessedWordsCount: Int = 0
     @Published private(set) var backgroundColor: Color = .yellow
+    @Published private(set) var shouldObserveMotionUpdates = false
     
     @Published var showGameEndDialog: Bool = false
     
@@ -42,27 +43,26 @@ class GameViewModel: ObservableObject {
     
     func passWord() {
         backgroundColor = .red
+        shouldObserveMotionUpdates = false
         
-        var blinked = false
-        Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { timer in
-            if !blinked {
-                blinked = true
-                timer.invalidate()
-                self.backgroundColor = .blue
-                self.nextWord()
-            }
-        }
+        blink()
     }
     
     func guessWord() {
         guessedWordsCount += 1
         backgroundColor = .green
+        shouldObserveMotionUpdates = false
         
+        blink()
+    }
+    
+    private func blink() {
         var blinked = false
         Timer.scheduledTimer(withTimeInterval: 0.4, repeats: true) { timer in
             if !blinked {
                 blinked = true
                 timer.invalidate()
+                self.shouldObserveMotionUpdates = true
                 self.backgroundColor = .blue
                 self.nextWord()
             }
@@ -81,6 +81,7 @@ class GameViewModel: ObservableObject {
     func startGame() {
         self.backgroundColor = .blue
         isCountdownFinished = true
+        shouldObserveMotionUpdates = true
     }
     
     func endGame() {
@@ -93,6 +94,7 @@ class GameViewModel: ObservableObject {
                 userRepository.saveBestScore(guessedWordsCount)
             }
         }
+        shouldObserveMotionUpdates = false
     }
     
     func filterAndShuffleWords() {

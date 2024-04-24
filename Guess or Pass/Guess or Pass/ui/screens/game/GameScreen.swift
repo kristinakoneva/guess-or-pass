@@ -18,7 +18,9 @@ struct GameScreen: View {
     
     @State private var timeLeft = 60
     @State private var timer: Timer? = nil
-    let motionManager = CMMotionManager()
+    let motionManager = DependencyContainer.shared.resolve(CMMotionManager.self)!
+    @State private var initialPitch: Double? = nil
+    @State private var tiltThreshold: Double = 90
     
     var body: some View {
         Group {
@@ -38,6 +40,7 @@ struct GameScreen: View {
                                 } else {
                                     timer.invalidate()
                                     viewModel.endGame()
+                                    motionManager.stopDeviceMotionUpdates()
                                 }
                             }
                         }
@@ -81,7 +84,7 @@ struct GameScreen: View {
                     if gameNavType == GameNavigationType.tilt || gameNavType == GameNavigationType.all {
                         startDeviceMotionUpdates()
                     }
-                }.onDisappear{
+                }.onDisappear {
                     motionManager.stopDeviceMotionUpdates()
                 }
             } else {
@@ -100,24 +103,65 @@ struct GameScreen: View {
             return
         }
         
+        // Update interval
+        motionManager.deviceMotionUpdateInterval = 1.0 / 50.0 // 50Hz
+        
         motionManager.startDeviceMotionUpdates(to: .main) { motion, error in
             guard let motion = motion else { return }
             
-            let zAcceleration = motion.userAcceleration.z
-            
-            if zAcceleration > 0.5 {
-                print("Device tilted forward")
-                viewModel.guessWord()
-            } else if zAcceleration < -0.5 {
-                print("Device tilted backward")
-                viewModel.passWord()
+            if viewModel.shouldObserveMotionUpdates {
+                // Debugging
+                let userAcceleration = motion.userAcceleration
+                let gravity = motion.gravity
+                let rotationRate = motion.rotationRate
+                let attitude = motion.attitude
+                
+                print("User Acceleration: \(userAcceleration.x), \(userAcceleration.y), \(userAcceleration.z)")
+                print("Gravity: \(gravity.x), \(gravity.y), \(gravity.z)")
+                print("Rotation Rate: \(rotationRate.x), \(rotationRate.y), \(rotationRate.z)")
+                
+                let roll = 180 / .pi * attitude.roll
+                let pitch = 180 / .pi * attitude.pitch
+                let yaw = 180 / .pi * attitude.yaw
+                print("Roll: \(roll)°, Pitch: \(pitch)°, Yaw: \(yaw)°")
+                
+                
+                
+                
+                // Extract the pitch angle from the motion's attitude
+                let pitchDegrees = 180 / .pi * motion.attitude.pitch
+                
+                if self.initialPitch == nil {
+                    // Set initial pitch value
+                    self.initialPitch = pitchDegrees
+                } else {
+                    // Calculate the pitch difference from the initial pitch
+                    let pitchDifference = abs(pitchDegrees - (self.initialPitch ?? 0))
+                    
+                    if pitchDifference >= self.tiltThreshold {
+                        // Tilt detected
+                        if motion.gravity.y < 0 {
+                            print("Device tilted forward")
+                            // Perform actions for forward tilt
+                            viewModel.guessWord()
+                        } else {
+                            print("Device tilted backward")
+                            // Perform actions for backward tilt
+                            viewModel.passWord()
+                        }
+                        
+                        // Reset initial pitch value
+                        self.initialPitch = nil
+                    }
+                }
             }
         }
     }
 }
 
 struct CountdownView: View {
-    var onFinish: () -> Void
+    var onFinish
+    : () -> Void
     @State var countdown: Int = 5
     
     var body: some View {

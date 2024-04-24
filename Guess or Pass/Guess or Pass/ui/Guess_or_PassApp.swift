@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreMotion
 
 @main
 struct Guess_or_PassApp: App {

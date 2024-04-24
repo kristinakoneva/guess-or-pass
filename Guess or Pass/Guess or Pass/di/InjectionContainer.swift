@@ -6,6 +6,7 @@
 //
 
 import Swinject
+import CoreMotion
 
 class DependencyContainer {
     static let shared = DependencyContainer()
@@ -48,6 +49,11 @@ class DependencyContainer {
         container.register(SettingsViewModel.self) { r in
             return SettingsViewModel(userRepository: r.resolve(UserRepository.self)!)
         }
+        
+        // Motion Manager
+        container.register(CMMotionManager.self) { _ in
+            return CMMotionManager()
+        }.inObjectScope(.container)
     }
     
     func resolve<T>(_ serviceType: T.Type) -> T? {
