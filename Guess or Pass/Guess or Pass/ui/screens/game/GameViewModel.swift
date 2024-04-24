@@ -29,7 +29,7 @@ class GameViewModel: ObservableObject {
     }
     
     func fetchWords(for category: WordsCategory) {
-        wordsRepository.fetchWords(for: .animals) { result in
+        wordsRepository.fetchWords(for: category) { result in
             switch result {
             case .success(let words):
                 self.words = words

@@ -19,7 +19,6 @@ struct WelcomeScreen: View {
     var body: some View {
         ScrollView {
             VStack {
-                
                 Text("Hi! 😄\nWhat's your name?")
                     .multilineTextAlignment(.center)
                     .font(.largeTitle)

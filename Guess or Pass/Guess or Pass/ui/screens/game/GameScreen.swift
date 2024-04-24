@@ -26,30 +26,42 @@ struct GameScreen: View {
         Group {
             if viewModel.isCountdownFinished {
                 VStack {
-                    viewModel.backgroundColor
-                        .edgesIgnoringSafeArea(.all)
-                    
-                    Text("Time Left: \(timeLeft)")
-                        .font(.title)
-                        .foregroundColor(.white)
-                        .padding(.trailing, 20)
-                        .padding(.top, 16).onAppear {
-                            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-                                if timeLeft > 1 {
-                                    timeLeft -= 1
-                                } else {
-                                    timer.invalidate()
-                                    viewModel.endGame()
-                                    motionManager.stopDeviceMotionUpdates()
+                    HStack {
+                        Text("Time Left: \(timeLeft)")
+                            .font(.title)
+                            .foregroundColor(.white)
+                            .padding(.trailing, 20)
+                            .padding(.top, 16).onAppear {
+                                timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+                                    if timeLeft > 1 {
+                                        timeLeft -= 1
+                                    } else {
+                                        timer.invalidate()
+                                        viewModel.endGame()
+                                        motionManager.stopDeviceMotionUpdates()
+                                    }
                                 }
                             }
-                        }
+                        Spacer()
+                        Button("End Game", action: {
+                            viewModel.endGame()
+                            motionManager.stopDeviceMotionUpdates()
+                        })
+                        .padding()
+                        .background(Color.orange)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                    }.padding(.horizontal)
+                    
+                    Spacer()
                     
                     Text(viewModel.currentWord)
                         .font(.largeTitle)
                         .foregroundColor(Color.white)
                         .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                         .padding()
+                    
+                    Spacer()
                     
                     if gameNavType == GameNavigationType.buttons || gameNavType == GameNavigationType.all {
                         HStack {
@@ -75,6 +87,8 @@ struct GameScreen: View {
                     }
                 }
                 .background(viewModel.backgroundColor)
+                .padding(.vertical, 54)
+                .padding(.horizontal, 16)
                 .alert(isPresented: $viewModel.showGameEndDialog) {
                     timer?.invalidate()
                     return Alert(title: Text("Game Over"), message: Text("You guessed \(viewModel.guessedWordsCount) words!"), dismissButton: .default(Text("OK"),action: {
@@ -90,10 +104,12 @@ struct GameScreen: View {
                     DragGesture()
                         .onEnded { gesture in
                             if gameNavType == .swipes || gameNavType == .all {
+                                if gesture.translation.width < 0 {
+                                    viewModel.passWord()
+                                }
+                                
                                 if gesture.translation.width > 0 {
                                     viewModel.guessWord()
-                                } else {
-                                    viewModel.passWord()
                                 }
                             }
                         }
@@ -106,6 +122,8 @@ struct GameScreen: View {
         }.onAppear {
             viewModel.fetchWords(for: self.wordsCategory)
         }
+        .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+        .background(viewModel.backgroundColor)
     }
     
     func startDeviceMotionUpdates() {
