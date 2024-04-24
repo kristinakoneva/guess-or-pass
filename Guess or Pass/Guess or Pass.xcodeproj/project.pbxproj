@@ -441,6 +441,8 @@
 			dependencies = (
 			);
 			name = "Guess or Pass";
+			packageProductDependencies = (
+			);
 			productName = "Guess or Pass";
 			productReference = CF1B099D2BD3D731001742A1 /* Guess or Pass.app */;
 			productType = "com.apple.product-type.application";
@@ -516,6 +518,8 @@
 				Base,
 			);
 			mainGroup = CF1B09942BD3D731001742A1;
+			packageReferences = (
+			);
 			productRefGroup = CF1B099E2BD3D731001742A1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";

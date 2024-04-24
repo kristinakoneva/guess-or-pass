@@ -22,9 +22,9 @@ struct Guess_or_PassApp: App {
                         case .home:
                             HomeScreen().navigationBarBackButtonHidden(true)
                         case .game(let wordsCategory, let gameNavType):
-                            GameScreen(wordsCategory: wordsCategory, gameNavType: gameNavType).navigationBarBackButtonHidden(true).environmentObject(OrientationInfo())
+                            GameScreen(wordsCategory: wordsCategory, gameNavType: gameNavType).navigationBarBackButtonHidden(true)
                         case .settings:
-                            SettingsScreen()
+                            SettingsScreen().environmentObject(OrientationInfo())
                         }
                     }
             }

@@ -8,9 +8,22 @@
 import SwiftUI
 
 struct InstructionsSheet: View {
+    var onDismiss: () -> Void
+    
+    @EnvironmentObject var orientationInfo: OrientationInfo
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
+                if orientationInfo.orientation == .landscape {
+                    HStack {
+                        Button("Close") {
+                            onDismiss()
+                        }
+                        Spacer()
+                    }.padding(.top, 24)
+                }
+                
                 Text("Welcome to 'Guess or Pass,' a thrilling multiplayer game designed for word enthusiasts! 🤩")
                     .font(.title)
                 
@@ -33,5 +46,5 @@ struct InstructionsSheet: View {
 
 
 #Preview {
-    InstructionsSheet()
+    InstructionsSheet(onDismiss: {})
 }

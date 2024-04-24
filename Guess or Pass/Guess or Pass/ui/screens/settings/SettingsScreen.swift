@@ -57,9 +57,9 @@ struct SettingsScreen: View {
             case .nameChange:
                 NameChangeSheet(newName: $viewModel.name, onSuccess: {
                     newName in viewModel.saveNewName(newName: newName)
-                })
+                }, onDismiss: { viewModel.closeSheet() })
             case .instructions:
-                InstructionsSheet()
+                InstructionsSheet(onDismiss: { viewModel.closeSheet() })
             case .galleryImagePicker:
                 ImagePicker(selectedImage: $selectedImage, sourceType: .photoLibrary)
             case .cameraImagePicker:
