@@ -30,7 +30,7 @@ The UI layer is simply what the user sees on the screen. Each screen consists of
 
 ## Dependency Injection
 
-[Swinject](https://github.com/Swinject/Swinject) is used for dependency injection. [`InjectionContainer.swift`](https://github.com/kristinakoneva/guess-or-pass/blob/main/Guess%20or%20Pass/Guess%20or%20Pass/di/InjectionContainer.swift) provides all data sources, repositories, view models and the [`CMMotionManager`](https://developer.apple.com/documentation/coremotion/cmmotionmanager).
+[Swinject](https://github.com/Swinject/Swinject) is used for dependency injection. [`InjectionContainer`](https://github.com/kristinakoneva/guess-or-pass/blob/main/Guess%20or%20Pass/Guess%20or%20Pass/di/InjectionContainer.swift) provides all data sources, repositories, view models and the [`CMMotionManager`](https://developer.apple.com/documentation/coremotion/cmmotionmanager).
 
 ## Networking
 
@@ -55,4 +55,14 @@ Description and screenshot to be added.
 - Read instructions
 - Change game navigation
 - Set reminder
+
+## Navigation
+Description to be added.
+[`Router`](https://github.com/kristinakoneva/guess-or-pass/blob/main/Guess%20or%20Pass/Guess%20or%20Pass/ui/shared/navigation/Router.swift)
+https://blorenzop.medium.com/routing-navigation-in-swiftui-f1f8ff818937 
+
+## Useful Utils
+Description to be added.
+[`OrientationInfo`](https://github.com/kristinakoneva/guess-or-pass/blob/main/Guess%20or%20Pass/Guess%20or%20Pass/ui/shared/utils/OrientationInfo.swift)
+https://forums.developer.apple.com/forums/thread/126878 
 
