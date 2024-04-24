@@ -10,7 +10,7 @@ The app supports both portrait and landscape mode.
 
 ## Architecture
 
-This app is divided into three layers: data, domain and UI layer. The state management is handled follwoing the MVVM pattern.
+This app is divided into three layers: data, domain and UI layer. The state management is handled following the MVVM pattern.
 ### Data Layer
 
 The data layer consists of two data sources:
