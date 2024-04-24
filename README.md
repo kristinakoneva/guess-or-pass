@@ -34,7 +34,5 @@ Description to be added.
 
 ## Networking
 
-## Dependency Injection
-
 Description to be added.
 
