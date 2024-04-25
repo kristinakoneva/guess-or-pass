@@ -18,9 +18,10 @@ struct GameScreen: View {
     
     @State private var timeLeft = 60
     @State private var timer: Timer? = nil
+    
     let motionManager = DependencyContainer.shared.resolve(CMMotionManager.self)!
-    @State private var initialPitch: Double? = nil
-    @State private var tiltThreshold: Double = 90
+    let tiltThreshold: Double = 60
+    @State private var hasJustTilted: Bool = false
     
     var body: some View {
         Group {
@@ -33,7 +34,7 @@ struct GameScreen: View {
                             .padding(.trailing, 20)
                             .padding(.top, 16).onAppear {
                                 timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-                                    if timeLeft > 1 {
+                                    if timeLeft > 0 {
                                         timeLeft -= 1
                                     } else {
                                         timer.invalidate()
@@ -132,56 +133,45 @@ struct GameScreen: View {
             return
         }
         
-        // Update interval
+        func radiansToDegrees(_ radians: Double) -> Double {
+            return radians * (180.0 / Double.pi)
+        }
+        
         motionManager.deviceMotionUpdateInterval = 1.0 / 50.0 // 50Hz
         
         motionManager.startDeviceMotionUpdates(to: .main) { motion, error in
             guard let motion = motion else { return }
             
-            if viewModel.shouldObserveMotionUpdates {
-                // Debugging
-                let userAcceleration = motion.userAcceleration
-                let gravity = motion.gravity
-                let rotationRate = motion.rotationRate
-                let attitude = motion.attitude
-                
-                print("User Acceleration: \(userAcceleration.x), \(userAcceleration.y), \(userAcceleration.z)")
-                print("Gravity: \(gravity.x), \(gravity.y), \(gravity.z)")
-                print("Rotation Rate: \(rotationRate.x), \(rotationRate.y), \(rotationRate.z)")
-                
-                let roll = 180 / .pi * attitude.roll
-                let pitch = 180 / .pi * attitude.pitch
-                let yaw = 180 / .pi * attitude.yaw
-                print("Roll: \(roll)°, Pitch: \(pitch)°, Yaw: \(yaw)°")
-                
-                
-                
-                
-                // Extract the pitch angle from the motion's attitude
-                let pitchDegrees = 180 / .pi * motion.attitude.pitch
-                
-                if self.initialPitch == nil {
-                    // Set initial pitch value
-                    self.initialPitch = pitchDegrees
+            let quat = motion.attitude.quaternion
+            let qPitch = CGFloat(radiansToDegrees(atan2(2 * (quat.x * quat.w + quat.y * quat.z), 1 - 2 * quat.x * quat.x - 2 * quat.z * quat.z)))
+            
+            // Extract the pitch angle from the motion's attitude
+            let pitchDegrees = radiansToDegrees(motion.attitude.pitch)
+            print("Current pitch: \(pitchDegrees)")
+            
+            if hasJustTilted && pitchDegrees < 80 {
+                // Still hasn't returned to the neutral position from a tilt
+                print("Recovering from a tilt")
+                return
+            } else {
+                hasJustTilted = false
+            }
+            
+            // Calculate the pitch difference from the neutral position
+            let pitchDifference = abs(pitchDegrees - 90)
+            print("Pitch difference: \(pitchDifference)")
+            
+            if pitchDifference >= self.tiltThreshold {
+                // Tilt detected
+                hasJustTilted = true
+                if qPitch > 90 {
+                    print("Device tilted forward")
+                    // Perform actions for forward tilt
+                    viewModel.guessWord()
                 } else {
-                    // Calculate the pitch difference from the initial pitch
-                    let pitchDifference = abs(pitchDegrees - (self.initialPitch ?? 0))
-                    
-                    if pitchDifference >= self.tiltThreshold {
-                        // Tilt detected
-                        if motion.gravity.y < 0 {
-                            print("Device tilted forward")
-                            // Perform actions for forward tilt
-                            viewModel.guessWord()
-                        } else {
-                            print("Device tilted backward")
-                            // Perform actions for backward tilt
-                            viewModel.passWord()
-                        }
-                        
-                        // Reset initial pitch value
-                        self.initialPitch = nil
-                    }
+                    print("Device tilted backward")
+                    // Perform actions for backward tilt
+                    viewModel.passWord()
                 }
             }
         }
@@ -189,8 +179,7 @@ struct GameScreen: View {
 }
 
 struct CountdownView: View {
-    var onFinish
-    : () -> Void
+    var onFinish: () -> Void
     @State var countdown: Int = 5
     
     var body: some View {
