@@ -121,7 +121,13 @@ struct GameScreen: View {
                 }
             }
         }.onAppear {
+            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+                windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .landscape))
             viewModel.fetchWords(for: self.wordsCategory)
+        }.onDisappear {
+            // TODO: Check if it is necessary to add this
+//            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+//                windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait))
         }
         .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         .background(viewModel.backgroundColor)
@@ -133,6 +139,14 @@ struct GameScreen: View {
             return
         }
         
+        // TODO: Add landscape mode only logic
+        /*
+         Use roll instead of pitch.
+         Roll values: -180 degrees (device on its face), -90 (neutral position), 0 (device on its back)
+         */
+        
+        
+        // Portrait mode logic
         func radiansToDegrees(_ radians: Double) -> Double {
             return radians * (180.0 / Double.pi)
         }
@@ -149,7 +163,7 @@ struct GameScreen: View {
             let pitchDegrees = radiansToDegrees(motion.attitude.pitch)
             print("Current pitch: \(pitchDegrees)")
             
-            if hasJustTilted && pitchDegrees < 80 {
+            if hasJustTilted && pitchDegrees < 70 {
                 // Still hasn't returned to the neutral position from a tilt
                 print("Recovering from a tilt")
                 return
