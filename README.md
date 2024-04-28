@@ -66,3 +66,5 @@ Description to be added.
 [`OrientationInfo`](https://github.com/kristinakoneva/guess-or-pass/blob/main/Guess%20or%20Pass/Guess%20or%20Pass/ui/shared/utils/OrientationInfo.swift)
 https://forums.developer.apple.com/forums/thread/126878 
 
+[`NotificationManager`]
+
