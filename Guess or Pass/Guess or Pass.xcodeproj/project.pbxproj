@@ -39,6 +39,7 @@
 		CF0A93B52BD86D9F00FBC32A /* SettingsActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A93B42BD86D9F00FBC32A /* SettingsActionSheet.swift */; };
 		CF0A93B72BD86DE600FBC32A /* SettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A93B62BD86DE600FBC32A /* SettingsSheet.swift */; };
 		CF0A93C82BDECE1E00FBC32A /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A93C72BDECE1E00FBC32A /* NotificationManager.swift */; };
+		CF0A93CB2BDEE5B500FBC32A /* LocationPicker in Frameworks */ = {isa = PBXBuildFile; productRef = CF0A93CA2BDEE5B500FBC32A /* LocationPicker */; };
 		CF1B09A12BD3D731001742A1 /* Guess_or_PassApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1B09A02BD3D731001742A1 /* Guess_or_PassApp.swift */; };
 		CF1B09A32BD3D731001742A1 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1B09A22BD3D731001742A1 /* HomeScreen.swift */; };
 		CF1B09A52BD3D733001742A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF1B09A42BD3D733001742A1 /* Assets.xcassets */; };
@@ -130,6 +131,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				34546D3C49B13AB54EDBFAAB /* Pods_Guess_or_Pass.framework in Frameworks */,
+				CF0A93CB2BDEE5B500FBC32A /* LocationPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,6 +447,7 @@
 			);
 			name = "Guess or Pass";
 			packageProductDependencies = (
+				CF0A93CA2BDEE5B500FBC32A /* LocationPicker */,
 			);
 			productName = "Guess or Pass";
 			productReference = CF1B099D2BD3D731001742A1 /* Guess or Pass.app */;
@@ -522,6 +525,7 @@
 			);
 			mainGroup = CF1B09942BD3D731001742A1;
 			packageReferences = (
+				CF0A93C92BDEE5B500FBC32A /* XCRemoteSwiftPackageReference "LocationPickerForSwiftUI" */,
 			);
 			productRefGroup = CF1B099E2BD3D731001742A1 /* Products */;
 			projectDirPath = "";
@@ -1042,6 +1046,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CF0A93C92BDEE5B500FBC32A /* XCRemoteSwiftPackageReference "LocationPickerForSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alessiorubicini/LocationPickerForSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CF0A93CA2BDEE5B500FBC32A /* LocationPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CF0A93C92BDEE5B500FBC32A /* XCRemoteSwiftPackageReference "LocationPickerForSwiftUI" */;
+			productName = LocationPicker;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CF1B09952BD3D731001742A1 /* Project object */;
 }

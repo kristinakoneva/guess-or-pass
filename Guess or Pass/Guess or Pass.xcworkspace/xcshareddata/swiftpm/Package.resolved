@@ -1,0 +1,15 @@
+{
+  "originHash" : "cff98f30a3b1fb6e018915b13453d9d10be1703b2057f09c3f7318b338161a4d",
+  "pins" : [
+    {
+      "identity" : "locationpickerforswiftui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/alessiorubicini/LocationPickerForSwiftUI",
+      "state" : {
+        "revision" : "aeb1aea83e887676a6dc369566040748773b418d",
+        "version" : "1.1.2"
+      }
+    }
+  ],
+  "version" : 3
+}

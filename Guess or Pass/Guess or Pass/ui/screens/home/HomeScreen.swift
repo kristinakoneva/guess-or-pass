@@ -6,10 +6,14 @@
 //
 
 import SwiftUI
+import MapKit
+import LocationPicker
 
 struct HomeScreen: View {
     @EnvironmentObject var router: Router
     @ObservedObject var viewModel: HomeViewModel = DependencyContainer.shared.resolve(HomeViewModel.self)!
+    @State private var coordinates = CLLocationCoordinate2D(latitude: 37.333747, longitude: -122.011448)
+        @State private var showSheet = true
     
     let notificationManager: NotificationManager = DependencyContainer.shared.resolve(NotificationManager.self)!
     
@@ -106,7 +110,8 @@ struct HomeScreen: View {
                     viewModel.closeDialog()
                 })
             }
-        }.onAppear {
+        }
+        .onAppear {
             // TODO: Remove after testing notifications
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
                     if let error = error {
@@ -122,9 +127,17 @@ struct HomeScreen: View {
             let date = Date().addingTimeInterval(61)
             notificationManager.scheduleNotification(title: title, body: body, date: date)
             
+            // TODO: Remove after testing notifications
+            let locationManager = CLLocationManager()
+            locationManager.requestWhenInUseAuthorization()
+            print("Loc: \(locationManager.authorizationStatus == .authorizedWhenInUse)")
+            
             // refreshing
             viewModel.fetchUserData()
         }
+        .sheet(isPresented: $showSheet) {
+                LocationPicker(instructions: "Tap to select coordinates", coordinates: $coordinates, dismissOnSelection: false)
+            }
         
         VStack {
             Button("Play") {
