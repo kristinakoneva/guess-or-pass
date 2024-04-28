@@ -42,8 +42,18 @@ struct HomeScreen: View {
                                     .multilineTextAlignment(.center)
                                     .foregroundColor(.white)
                                     .padding(.top, 8)
-                                    .padding(.bottom, 16)
                                     .padding(.horizontal, 24)
+                            }
+                            
+                            if let bestScore = viewModel.bestScore {
+                                    Text("Best score 💪: \(bestScore) words/min")
+                                        .font(.headline)
+                                        .fontWeight(.bold)
+                                        .multilineTextAlignment(.center)
+                                        .foregroundColor(.white)
+                                        .padding(.top, 8)
+                                        .padding(.bottom, 16)
+                                        .padding(.horizontal, 24)
                             }
                         }}
                     .frame(maxWidth: .infinity)
@@ -62,7 +72,7 @@ struct HomeScreen: View {
                     Text("Guess words for category:")
                         .font(.headline)
                         .padding(.horizontal, 24)
-                        .padding(.top, 24)
+                        .padding(.top, 20)
                     
                     LazyVGrid(columns: Array(repeating: GridItem(), count: 2), spacing: 10) {
                         ForEach(viewModel.categories, id: \.self) { category in
