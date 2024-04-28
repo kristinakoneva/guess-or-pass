@@ -54,6 +54,11 @@ class DependencyContainer {
         container.register(CMMotionManager.self) { _ in
             return CMMotionManager()
         }.inObjectScope(.container)
+        
+        // Notification Manager
+        container.register(NotificationManager.self) { _ in
+            return NotificationManager()
+        }.inObjectScope(.container)
     }
     
     func resolve<T>(_ serviceType: T.Type) -> T? {

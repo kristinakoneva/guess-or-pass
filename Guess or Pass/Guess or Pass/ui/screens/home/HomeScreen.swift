@@ -11,6 +11,8 @@ struct HomeScreen: View {
     @EnvironmentObject var router: Router
     @ObservedObject var viewModel: HomeViewModel = DependencyContainer.shared.resolve(HomeViewModel.self)!
     
+    let notificationManager: NotificationManager = DependencyContainer.shared.resolve(NotificationManager.self)!
+    
     var body: some View {
         VStack {
             ScrollView {
@@ -105,6 +107,21 @@ struct HomeScreen: View {
                 })
             }
         }.onAppear {
+            // TODO: Remove after testing notifications
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+                    if let error = error {
+                        print("Error requesting authorization for notifications: \(error.localizedDescription)")
+                    } else if granted {
+                        print("Notification authorization granted")
+                    } else {
+                        print("Notification authorization denied")
+                    }
+                }
+            let title = "Reminder"
+            let body = "Don't forget to play Guess or Pass with your friends!"
+            let date = Date().addingTimeInterval(61)
+            notificationManager.scheduleNotification(title: title, body: body, date: date)
+            
             // refreshing
             viewModel.fetchUserData()
         }
