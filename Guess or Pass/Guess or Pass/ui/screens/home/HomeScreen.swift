@@ -126,7 +126,6 @@ struct HomeScreen: View {
             viewModel.fetchUserData()
         }
         
-        
         VStack {
             Button("Play") {
                 viewModel.onPlayButtonClicked()
