@@ -49,6 +49,9 @@ class DependencyContainer {
         container.register(SettingsViewModel.self) { r in
             return SettingsViewModel(userRepository: r.resolve(UserRepository.self)!)
         }
+        container.register(ReminderViewModel.self) { _ in
+            return ReminderViewModel()
+        }
         
         // Motion Manager
         container.register(CMMotionManager.self) { _ in

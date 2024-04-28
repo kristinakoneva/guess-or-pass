@@ -26,6 +26,8 @@ struct Guess_or_PassApp: App {
                             GameScreen(wordsCategory: wordsCategory, gameNavType: gameNavType).navigationBarBackButtonHidden(true)
                         case .settings:
                             SettingsScreen().environmentObject(OrientationInfo())
+                        case .reminder:
+                            ReminderScreen()
                         }
                     }
             }

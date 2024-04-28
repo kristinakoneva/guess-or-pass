@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SettingsScreen: View {
+    @EnvironmentObject var router: Router
     @ObservedObject var viewModel: SettingsViewModel = DependencyContainer.shared.resolve(SettingsViewModel.self)!
     @State private var selectedImage: UIImage?
     
@@ -64,8 +65,6 @@ struct SettingsScreen: View {
                 ImagePicker(selectedImage: $selectedImage, sourceType: .photoLibrary)
             case .cameraImagePicker:
                 ImagePicker(selectedImage: $selectedImage, sourceType: .camera)
-            case .setReminder:
-                VStack {}
             case .none:
                 VStack {}
             }
@@ -80,6 +79,12 @@ struct SettingsScreen: View {
                 showGameNavTypeActionSheet()
             }
         })
+        .onReceive(viewModel.$navigateToSetReminder) { navigateToSetReminder in
+            if navigateToSetReminder {
+                viewModel.clearNavigationEvent()
+                router.navigate(to: .reminder)
+            }
+        }
     }
     
     func showGameNavTypeActionSheet() -> ActionSheet{

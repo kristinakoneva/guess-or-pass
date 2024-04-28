@@ -14,6 +14,7 @@ final class Router: ObservableObject {
         case home
         case game(wordsCategory: WordsCategory, gameNavType: GameNavigationType)
         case settings
+        case reminder
     }
     
     @Published var navPath = NavigationPath()

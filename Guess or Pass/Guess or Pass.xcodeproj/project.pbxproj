@@ -40,6 +40,8 @@
 		CF0A93B72BD86DE600FBC32A /* SettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A93B62BD86DE600FBC32A /* SettingsSheet.swift */; };
 		CF0A93C82BDECE1E00FBC32A /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A93C72BDECE1E00FBC32A /* NotificationManager.swift */; };
 		CF0A93CB2BDEE5B500FBC32A /* LocationPicker in Frameworks */ = {isa = PBXBuildFile; productRef = CF0A93CA2BDEE5B500FBC32A /* LocationPicker */; };
+		CF0A93CF2BDEEC2800FBC32A /* ReminderScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A93CE2BDEEC2800FBC32A /* ReminderScreen.swift */; };
+		CF0A93D12BDEEC3300FBC32A /* ReminderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF0A93D02BDEEC3300FBC32A /* ReminderViewModel.swift */; };
 		CF1B09A12BD3D731001742A1 /* Guess_or_PassApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1B09A02BD3D731001742A1 /* Guess_or_PassApp.swift */; };
 		CF1B09A32BD3D731001742A1 /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1B09A22BD3D731001742A1 /* HomeScreen.swift */; };
 		CF1B09A52BD3D733001742A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF1B09A42BD3D733001742A1 /* Assets.xcassets */; };
@@ -109,6 +111,8 @@
 		CF0A93B42BD86D9F00FBC32A /* SettingsActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsActionSheet.swift; sourceTree = "<group>"; };
 		CF0A93B62BD86DE600FBC32A /* SettingsSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSheet.swift; sourceTree = "<group>"; };
 		CF0A93C72BDECE1E00FBC32A /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		CF0A93CE2BDEEC2800FBC32A /* ReminderScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderScreen.swift; sourceTree = "<group>"; };
+		CF0A93D02BDEEC3300FBC32A /* ReminderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderViewModel.swift; sourceTree = "<group>"; };
 		CF1B099D2BD3D731001742A1 /* Guess or Pass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Guess or Pass.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF1B09A02BD3D731001742A1 /* Guess_or_PassApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guess_or_PassApp.swift; sourceTree = "<group>"; };
 		CF1B09A22BD3D731001742A1 /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
@@ -291,6 +295,15 @@
 			path = models;
 			sourceTree = "<group>";
 		};
+		CF0A93CD2BDEEC1B00FBC32A /* reminder */ = {
+			isa = PBXGroup;
+			children = (
+				CF0A93CE2BDEEC2800FBC32A /* ReminderScreen.swift */,
+				CF0A93D02BDEEC3300FBC32A /* ReminderViewModel.swift */,
+			);
+			path = reminder;
+			sourceTree = "<group>";
+		};
 		CF1B09942BD3D731001742A1 = {
 			isa = PBXGroup;
 			children = (
@@ -392,6 +405,7 @@
 		CF1B09D22BD3DE5E001742A1 /* screens */ = {
 			isa = PBXGroup;
 			children = (
+				CF0A93CD2BDEEC1B00FBC32A /* reminder */,
 				CF0A939E2BD5B2E600FBC32A /* settings */,
 				CF0A93922BD5339600FBC32A /* game */,
 				CF4F52442BD3E7E100CA9009 /* welcome */,
@@ -681,6 +695,7 @@
 				CF0A937E2BD43F5500FBC32A /* DatamuseApiSourceImpl.swift in Sources */,
 				CF0A93A92BD5BE2D00FBC32A /* GameNavigationType.swift in Sources */,
 				CF0A938E2BD44C9400FBC32A /* WordsCategoryView.swift in Sources */,
+				CF0A93CF2BDEEC2800FBC32A /* ReminderScreen.swift in Sources */,
 				CF0A93802BD43F8200FBC32A /* WordsCategoryRequest.swift in Sources */,
 				CF4F52462BD3E7F900CA9009 /* WelcomeViewModel.swift in Sources */,
 				CF0A93B52BD86D9F00FBC32A /* SettingsActionSheet.swift in Sources */,
@@ -702,6 +717,7 @@
 				CF0A93602BD40D1700FBC32A /* LocalStorage.swift in Sources */,
 				CF0A93852BD440BC00FBC32A /* WordsRepository.swift in Sources */,
 				CF0A93942BD533A900FBC32A /* GameScreen.swift in Sources */,
+				CF0A93D12BDEEC3300FBC32A /* ReminderViewModel.swift in Sources */,
 				CF0A93872BD440DD00FBC32A /* WordsRepositoryImpl.swift in Sources */,
 				CF0A93AF2BD7185300FBC32A /* NameChangeSheet.swift in Sources */,
 				CF0A93C82BDECE1E00FBC32A /* NotificationManager.swift in Sources */,

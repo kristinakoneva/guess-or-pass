@@ -15,6 +15,8 @@ class SettingsViewModel: ObservableObject {
     @Published private(set) var avatar: UIImage? = nil
     @Published private(set) var bestScore: Int? = nil
     
+    @Published var navigateToSetReminder = false
+    
     @Published private(set) var settingsActionSheet: SettingsActionSheet? = nil
     @Published private(set) var settingsSheet: SettingsSheet? = nil
     @Published var isActionSheetPresented = false
@@ -54,8 +56,7 @@ class SettingsViewModel: ObservableObject {
             self.isSheetPresented = true
             break
         case .setReminder:
-            self.settingsSheet = .setReminder
-            self.isSheetPresented = true
+            self.navigateToSetReminder = true
         }
     }
     
@@ -96,5 +97,9 @@ class SettingsViewModel: ObservableObject {
     func closeActionSheet() {
         self.isActionSheetPresented = false
         self.settingsActionSheet = nil
+    }
+    
+    func clearNavigationEvent() {
+        self.navigateToSetReminder = false
     }
 }
