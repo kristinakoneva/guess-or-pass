@@ -15,11 +15,11 @@ struct Guess_or_PassApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router.navPath) {
-                WelcomeScreen()
+                VStack{}
                     .navigationDestination(for: Router.Destination.self) { destination in
                         switch destination {
                         case .welcome:
-                            WelcomeScreen()
+                            WelcomeScreen().navigationBarBackButtonHidden(true)
                         case .home:
                             HomeScreen().navigationBarBackButtonHidden(true)
                         case .game(let wordsCategory, let gameNavType):
@@ -32,6 +32,9 @@ struct Guess_or_PassApp: App {
                     }
             }
             .environmentObject(router)
+            .onAppear {
+                router.navigate(to: .welcome)
+            }
         }
     }
 }

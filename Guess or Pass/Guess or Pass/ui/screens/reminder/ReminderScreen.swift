@@ -43,3 +43,8 @@ struct ReminderScreen: View {
         }
     }
 }
+
+
+#Preview {
+    ReminderScreen()
+}

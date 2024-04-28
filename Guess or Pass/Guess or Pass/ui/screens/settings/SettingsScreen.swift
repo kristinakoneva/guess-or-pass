@@ -85,6 +85,7 @@ struct SettingsScreen: View {
                 router.navigate(to: .reminder)
             }
         }
+        .navigationBarTitle("Settings")
     }
     
     func showGameNavTypeActionSheet() -> ActionSheet{
