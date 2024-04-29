@@ -46,7 +46,6 @@ struct SettingsScreen: View {
                 }
             }.padding(.top, 32)
         }
-        .padding(.horizontal, 32)
         .sheet(isPresented: $viewModel.isSheetPresented, onDismiss: {
             if viewModel.settingsSheet == .galleryImagePicker || viewModel.settingsSheet == .cameraImagePicker {
                 viewModel.saveNewAvatar(newAvatar: selectedImage)
@@ -85,6 +84,7 @@ struct SettingsScreen: View {
                 router.navigate(to: .reminder)
             }
         }
+        .padding(.horizontal, 32)
         .navigationBarTitle("Settings")
         .navigationBarTitleDisplayMode(.inline)
     }

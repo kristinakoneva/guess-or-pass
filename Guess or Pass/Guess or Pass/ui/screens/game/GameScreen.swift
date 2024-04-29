@@ -95,13 +95,16 @@ struct GameScreen: View {
                     return Alert(title: Text("Game Over"), message: Text("You guessed \(viewModel.guessedWordsCount) words!"), dismissButton: .default(Text("OK"),action: {
                         router.navigateBack()
                     }))
-                }.onAppear {
+                }
+                .onAppear {
                     if gameNavType == .tilts || gameNavType == .all {
                         startDeviceMotionUpdates()
                     }
-                }.onDisappear {
+                }
+                .onDisappear {
                     motionManager.stopDeviceMotionUpdates()
-                }.gesture(
+                }
+                .gesture(
                     DragGesture()
                         .onEnded { gesture in
                             if gameNavType == .swipes || gameNavType == .all {

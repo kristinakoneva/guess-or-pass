@@ -9,6 +9,13 @@ import UserNotifications
 
 class NotificationManager {
     
+    func requestAuthorization(completion: @escaping (Bool) -> Void) {
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+            completion(granted)
+        }
+    }
+    
     func scheduleNotification(title: String, body: String, date: Date) {
         let center = UNUserNotificationCenter.current()
         

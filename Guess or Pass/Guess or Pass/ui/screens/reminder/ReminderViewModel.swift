@@ -18,22 +18,25 @@ class ReminderViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var eventDateTime: Date = Date()
     @Published var locationName: String = "Skopje"
     @Published var selectedCoordinates: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 41.9981, longitude: 21.4254) {
-            didSet {
-                geocoder.reverseGeocodeLocation(CLLocation(latitude: selectedCoordinates.latitude, longitude: selectedCoordinates.longitude)) { placemarks, error in
-                    if let error = error {
-                        print("Reverse geocoding error: \(error.localizedDescription)")
-                        return
-                    }
-                    
-                    guard let placemark = placemarks?.first else {
-                        print("No placemark found")
-                        return
-                    }
-                    
-                    self.locationName = placemark.name ?? placemark.locality ?? placemark.subLocality ?? placemark.subAdministrativeArea ?? placemark.administrativeArea ?? "Unknown"
+        didSet {
+            geocoder.reverseGeocodeLocation(CLLocation(latitude: selectedCoordinates.latitude, longitude: selectedCoordinates.longitude)) { placemarks, error in
+                if let error = error {
+                    print("Reverse geocoding error: \(error.localizedDescription)")
+                    return
                 }
+                
+                guard let placemark = placemarks?.first else {
+                    print("No placemark found")
+                    return
+                }
+                
+                self.locationName = placemark.name ?? placemark.locality ?? placemark.subLocality ?? placemark.subAdministrativeArea ?? placemark.administrativeArea ?? "Unknown"
             }
         }
+    }
+    @Published var isAlertDialogPresented: Bool = false
+    @Published private(set) var alertDialog: ReminderAlertDialog? = nil
+    
     
     override init() {
         super.init()
@@ -107,5 +110,45 @@ class ReminderViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         components.second = 0
         
         return calendar.date(byAdding: components, to: calendar.startOfDay(for: Date()))!
+    }
+    
+    func setReminder() {
+        if eventNameInput.isEmpty {
+            eventNameInput = "Game night 🥳"
+        }
+        
+        let currentPlusOneHour = Date().addingTimeInterval(3600)
+        if eventDateTime < currentPlusOneHour {
+            eventDateTime = getTomorrowAt8PM()
+            return
+        }
+        
+        let calendar = Calendar.current
+        let notificationDate = calendar.date(byAdding: .hour, value: -1, to: eventDateTime) ?? eventDateTime
+        
+        notificationManager.requestAuthorization { granted in
+            guard granted else {
+                print("Notification permission not granted")
+                self.alertDialog = .notificationPermissionDenied
+                self.isAlertDialogPresented = true
+                return
+            }
+            
+            self.notificationManager.scheduleNotification(title: "Guees or Pass Reminder 🔔", body: self.getReminderNotificationBody(), date: notificationDate)
+            self.alertDialog = .successfullySetReminder
+            self.isAlertDialogPresented = true
+        }
+    }
+    
+    private func getReminderNotificationBody() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+        let formattedDate = dateFormatter.string(from: eventDateTime)
+        return "Hey hey! 👋\n\nYour \"\(eventNameInput)\" event is starting in 1 hour.\n\n📅 Date & time: \(formattedDate)h\n\n📍 Location: \(locationName)"
+    }
+    
+    func closeAlertDialog() {
+        isAlertDialogPresented = false
+        alertDialog = nil
     }
 }

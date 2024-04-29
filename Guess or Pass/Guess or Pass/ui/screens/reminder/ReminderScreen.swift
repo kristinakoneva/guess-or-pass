@@ -11,6 +11,7 @@ import MapKit
 
 
 struct ReminderScreen: View {
+    @EnvironmentObject var router: Router
     @ObservedObject var viewModel: ReminderViewModel = DependencyContainer.shared.resolve(ReminderViewModel.self)!
     
     var body: some View {
@@ -41,7 +42,7 @@ struct ReminderScreen: View {
                 HStack {
                     Spacer()
                     Button("Set reminder 🔔") {
-                        // TODO: Implement set reminder logic
+                        viewModel.setReminder()
                     }
                     .padding()
                     .background(Color.blue)
@@ -54,7 +55,22 @@ struct ReminderScreen: View {
             .sheet(isPresented: $viewModel.isLocationPickerPresented, onDismiss: {
                 viewModel.closeLocationPickerSheet()
             }) {
-                LocationPicker(instructions: "Tap to select location", coordinates: $viewModel.selectedCoordinates, zoomLevel: 0.5, dismissOnSelection: true)
+                LocationPicker(instructions: "Tap to select location 📍", coordinates: $viewModel.selectedCoordinates, zoomLevel: 0.5, dismissOnSelection: true)
+            }
+            .alert(isPresented: $viewModel.isAlertDialogPresented) {
+                switch viewModel.alertDialog {
+                case .successfullySetReminder:
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+                    let formattedDate = dateFormatter.string(from: viewModel.eventDateTime)
+                    return Alert(title: Text("Reminder set ✅"), message: Text("We will send you a notification 1 hour before \"\(viewModel.eventNameInput)\" on \(formattedDate)h."), dismissButton: .default(Text("OK"),action: {
+                        router.navigateBack()
+                    }))
+                default:
+                    return Alert(title: Text("Notifications are disabled 🔕"), message: Text("Please enable notifications in the app settings if you want to recieve a reminder for your \"\(viewModel.eventNameInput)\" event."), dismissButton: .default(Text("OK"),action: {
+                        viewModel.closeAlertDialog()
+                    }))
+                }
             }
             .onAppear {
                 viewModel.checkLocationPermissionsAndLocateUserIfPossible()
