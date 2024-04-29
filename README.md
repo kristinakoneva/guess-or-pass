@@ -6,7 +6,7 @@ Guess or Pass is an iOS mobile application developed in [Swift](https://develope
 
 It's a multiplayer game where one lucky individual takes on the role of the guesser, while others act as the clue-givers, providing hints to help the guesser identify the correct word. The objective is to guess as many words as possible from the selected category in the duration of one minute. Users can choose one of the following categories: animals, food, sports, technology, music and nature. There are several options about navigating throughout the game play - users can use button clicks, swipe gestures or phone tilts to guess or pass a certain word. Additionally, users can set reminders for their game nights or similar events and they will receive a notification with the time and place.
 
-The app supports both portrait and landscape mode (except for the game screen which is locked to landscape mode).
+The app supports both portrait and landscape mode (except for the game screen which is locked in landscape mode).
 
 ## Architecture
 
