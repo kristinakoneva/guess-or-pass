@@ -2,11 +2,11 @@
 _Developed by: Kristina Koneva (student index number: 201513)_
 
 ## Overview
-Guess or Pass is an iOS mobile application developed in Swift as the programming language of choice and SwiftUI as a suitable modern UI framework.
+Guess or Pass is an iOS mobile application developed in [Swift](https://developer.apple.com/swift/) as the programming language of choice and [SwiftUI](https://developer.apple.com/xcode/swiftui/) as a suitable modern UI framework.
 
-It's a multiplayer game where one lucky individual takes on the role of the guesser, while others act as the clue-givers, providing hints to help the guesser identify the correct word. The objective is to guess as many words as possible from the selected category in the duration of one minute. Users can choose one of the following categories: animals, food, sports, technology, music and nature. There are several options about navigating throughout the game play - users can use button clicks, swipe gestures or phone tilts to guess or pass a certain word. Additionally, users can set reminders for their game nights or similar events and they will recieve a notification with the time and place.
+It's a multiplayer game where one lucky individual takes on the role of the guesser, while others act as the clue-givers, providing hints to help the guesser identify the correct word. The objective is to guess as many words as possible from the selected category in the duration of one minute. Users can choose one of the following categories: animals, food, sports, technology, music and nature. There are several options about navigating throughout the game play - users can use button clicks, swipe gestures or phone tilts to guess or pass a certain word. Additionally, users can set reminders for their game nights or similar events and they will receive a notification with the time and place.
 
-The app supports both portrait and landscape mode.
+The app supports both portrait and landscape mode (except for the game screen which is locked to landscape mode).
 
 ## Architecture
 
@@ -16,7 +16,7 @@ This app is divided into three layers: data, domain and UI layer. The state mana
 The data layer consists of two data sources:
 
 - remote source (the [Datamuse API](https://www.datamuse.com/api/) source for fetching the words)
-- local source ([UserDefaults](https://developer.apple.com/documentation/foundation/userdefaults) which locally provide and store the user's name, avatar image, game navigation type and best score).
+- local source ([`UserDefaults`](https://developer.apple.com/documentation/foundation/userdefaults) which locally provide and store the user's name, avatar image, game navigation type and best score).
 
 ### Domain Layer
 
@@ -30,7 +30,7 @@ The UI layer is simply what the user sees on the screen. Each screen consists of
 
 ## Dependency Injection
 
-[Swinject](https://github.com/Swinject/Swinject) is used for dependency injection. [`InjectionContainer`](https://github.com/kristinakoneva/guess-or-pass/blob/main/Guess%20or%20Pass/Guess%20or%20Pass/di/InjectionContainer.swift) provides all data sources, repositories, view models and the [`CMMotionManager`](https://developer.apple.com/documentation/coremotion/cmmotionmanager).
+[Swinject](https://github.com/Swinject/Swinject) is used for dependency injection. [`InjectionContainer`](https://github.com/kristinakoneva/guess-or-pass/blob/main/Guess%20or%20Pass/Guess%20or%20Pass/di/InjectionContainer.swift) provides all data sources, repositories, view models and several managers and classes wicha re provided as singletons, such as: [`CMMotionManager`](https://developer.apple.com/documentation/coremotion/cmmotionmanager), [`CLLocationManager`](https://developer.apple.com/documentation/corelocation/cllocationmanager), [`CLGeocoder`](https://developer.apple.com/documentation/corelocation/clgeocoder), [`NotificationManager`](https://github.com/kristinakoneva/guess-or-pass/blob/main/Guess%20or%20Pass/Guess%20or%20Pass/ui/shared/utils/NotificationManager.swift).
 
 ## Networking
 
@@ -57,14 +57,12 @@ Description and screenshot to be added.
 - Set reminder
 
 ## Navigation
-Description to be added.
-[`Router`](https://github.com/kristinakoneva/guess-or-pass/blob/main/Guess%20or%20Pass/Guess%20or%20Pass/ui/shared/navigation/Router.swift)
-https://blorenzop.medium.com/routing-navigation-in-swiftui-f1f8ff818937 
+The [`Router`](https://github.com/kristinakoneva/guess-or-pass/blob/main/Guess%20or%20Pass/Guess%20or%20Pass/ui/shared/navigation/Router.swift) class is used for navigating through the different screens (views). It is inspired by the [following article](https://blorenzop.medium.com/routing-navigation-in-swiftui-f1f8ff818937) and contains several useful methods. The `Router` is provided as an environment object and it is available in each view defined in the `Guess_or_PassApp`. 
 
 ## Useful Utils
-Description to be added.
-[`OrientationInfo`](https://github.com/kristinakoneva/guess-or-pass/blob/main/Guess%20or%20Pass/Guess%20or%20Pass/ui/shared/utils/OrientationInfo.swift)
-https://forums.developer.apple.com/forums/thread/126878 
+- [`OrientationInfo`](https://github.com/kristinakoneva/guess-or-pass/blob/main/Guess%20or%20Pass/Guess%20or%20Pass/ui/shared/utils/OrientationInfo.swift) - inspired by the following (thread)[https://forums.developer.apple.com/forums/thread/126878] and used for obtaining device orientation information. It is primarily used for determining the device orientation when a user opens some action sheet - when the orientation sheet is landscape, a "Close" button is displayed on the action sheet because the user cannot dismiss it otherwise.
+- [`NotificationManager`](https://github.com/kristinakoneva/guess-or-pass/blob/main/Guess%20or%20Pass/Guess%20or%20Pass/ui/shared/utils/NotificationManager.swift) - uses the `UNUserNotificationCenter` to check and request notification permissions and schedule local notifications.
+ 
 
-[`NotificationManager`](https://github.com/kristinakoneva/guess-or-pass/blob/main/Guess%20or%20Pass/Guess%20or%20Pass/ui/shared/utils/NotificationManager.swift)
+
 
