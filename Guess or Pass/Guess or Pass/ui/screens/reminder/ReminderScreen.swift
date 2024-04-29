@@ -6,40 +6,63 @@
 //
 
 import SwiftUI
+import LocationPicker
+import MapKit
 
 
 struct ReminderScreen: View {
     @ObservedObject var viewModel: ReminderViewModel = DependencyContainer.shared.resolve(ReminderViewModel.self)!
     
-    @State private var eventName = ""
-    @State private var selectedDate = Date()
-    
     var body: some View {
         ScrollView {
-            VStack {
-                TextField("Event Name", text: $eventName)
-                    .padding()
+            VStack(alignment: .leading) {
+                Text("Enter the event name, date, time and location and we will send you a notification one hour before the event to remind you about it. 🔔")
                 
-                // Date and Time Picker
-                DatePicker("Select Date and Time", selection: $selectedDate, displayedComponents: [.date, .hourAndMinute])
-                    .datePickerStyle(WheelDatePickerStyle())
+                Text("Event name:").font(.title2).padding(.top, 12).fontWeight(.bold)
+                TextField("Event name", text: $viewModel.eventNameInput)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                
+                Text("Date and time:").font(.title2).padding(.top, 12).fontWeight(.bold)
+                DatePicker("Select Date and Time", selection: $viewModel.eventDateTime, in: Date().addingTimeInterval(3660)..., displayedComponents: [.date, .hourAndMinute])
+                    .datePickerStyle(GraphicalDatePickerStyle())
                     .labelsHidden()
-                    .padding()
                 
-                // Location Picker Button
-                Button("Choose Location") {
-                    // Present location picker here
-                    // This could open a modal sheet containing a map or use a map view
+                
+                Text("Location:").font(.title2).padding(.top, 12).fontWeight(.bold)
+                Text("\(viewModel.locationName)").font(.title2)
+                Button("Change location") {
+                    viewModel.openLocationPickerSheet()
                 }
                 .padding()
-                .background(Color.blue)
+                .background(Color.orange)
                 .foregroundColor(.white)
                 .cornerRadius(10)
                 
-                Spacer()
+                HStack {
+                    Spacer()
+                    Button("Set reminder 🔔") {
+                        // TODO: Implement set reminder logic
+                    }
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
+                    .font(.system(size: 18, weight: .bold))
+                    Spacer()
+                }.padding(.top, 24)
             }
+            .sheet(isPresented: $viewModel.isLocationPickerPresented, onDismiss: {
+                viewModel.closeLocationPickerSheet()
+            }) {
+                LocationPicker(instructions: "Tap to select location", coordinates: $viewModel.selectedCoordinates, zoomLevel: 0.5, dismissOnSelection: true)
+            }
+            .onAppear {
+                viewModel.checkLocationPermissionsAndLocateUserIfPossible()
+            }
+            .padding(.horizontal, 16)
             .padding()
             .navigationBarTitle("Set Reminder")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

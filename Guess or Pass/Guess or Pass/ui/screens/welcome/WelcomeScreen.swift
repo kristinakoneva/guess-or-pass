@@ -17,8 +17,9 @@ struct WelcomeScreen: View {
     @State private var isAlertPresented = false
     
     var body: some View {
-        ScrollView {
-            VStack {
+       ScrollView {
+            VStack(alignment: .center) {
+                Spacer()
                 Text("Hi! 😄\nWhat's your name?")
                     .multilineTextAlignment(.center)
                     .font(.largeTitle)
@@ -47,7 +48,6 @@ struct WelcomeScreen: View {
                 Text("Choose your avatar:").padding(.top, 10)
                 
                 HStack {
-                    Spacer()
                     Button(action: {
                         self.imagePickerSourceType = .photoLibrary
                         self.shouldOpenImagePicker = true
@@ -74,11 +74,11 @@ struct WelcomeScreen: View {
                             .cornerRadius(10)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
-                    
+                    .padding()
                 }
                 .padding(.bottom, 32)
                 
-                Button("Let's play") {
+                Button("Let's play 🥳") {
                     if viewModel.nameInput.isEmpty || selectedImage == nil {
                         isAlertPresented = true
                     } else {
@@ -91,6 +91,8 @@ struct WelcomeScreen: View {
                 .background(Color.green)
                 .foregroundColor(.white)
                 .cornerRadius(10)
+                .fontWeight(.bold)
+                Spacer()
             }
             .padding()
             .onAppear {
@@ -113,24 +115,6 @@ struct WelcomeScreen: View {
         if let imageData = image.pngData() {
             viewModel.saveUserAvatar(imageData: imageData)
         }
-    }
-}
-
-struct AvatarImage: View {
-    var systemName: String
-    var isSelected: Bool
-    
-    var body: some View {
-        Image(systemName: systemName)
-            .resizable()
-            .frame(width: 50, height: 50)
-            .padding()
-            .background(isSelected ? Color.blue.opacity(0.3) : Color.clear)
-            .cornerRadius(10)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(isSelected ? Color.blue : Color.clear, lineWidth: 2)
-            )
     }
 }
 

@@ -86,6 +86,7 @@ struct SettingsScreen: View {
             }
         }
         .navigationBarTitle("Settings")
+        .navigationBarTitleDisplayMode(.inline)
     }
     
     func showGameNavTypeActionSheet() -> ActionSheet{

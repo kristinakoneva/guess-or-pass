@@ -62,6 +62,16 @@ class DependencyContainer {
         container.register(NotificationManager.self) { _ in
             return NotificationManager()
         }.inObjectScope(.container)
+        
+        // Location Manager
+        container.register(CLLocationManager.self) { _ in
+            return CLLocationManager()
+        }.inObjectScope(.container)
+        
+        // Geocoder
+        container.register(CLGeocoder.self) { _ in
+            return CLGeocoder()
+        }.inObjectScope(.container)
     }
     
     func resolve<T>(_ serviceType: T.Type) -> T? {
