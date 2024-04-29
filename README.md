@@ -39,10 +39,20 @@ The [Alamofire](https://github.com/Alamofire/Alamofire) HTTP networking library 
 ## Screens and Features
 
 ### Welcome Screen
-Description and screenshot to be added.
+The first screen users see when they open the app for the first time is the welcome screen. They are required to enter their name/nickname and choose their avatar. They can pick the image for their avatar either form their photo gallery or instantly take the photo by opening their camera. Once they have provided both things and have clicked on the "Let's play 🥳" button, they will be navigated to the game screen and their choices (name and avatar) will be saved locally in the `UserDefaults`.
+
+_TODO: Add screenshots._
 
 ### Home Screen
-Description and screenshot to be added.
+On the home screen, users can see their name, avatar and best score. The best score represents how many correct guesses they have made in one minute and the initial for this score is 0 words/min. 
+
+Below the user information, the avaialble word categories are listed. Once the user has chosen their category of choice, they can proceed with playing the game by clicking the "Play" button.
+
+If users click on the "Play" button, but haven't chosen a category yet, an alret dialog will be shown.
+
+On the top right of the screen, there is a settings icon button whcih navigates to the settings screen when clicked.
+
+_TODO: Add screenshots._
 
 ### Game Screen
 Description and screenshot to be added.
