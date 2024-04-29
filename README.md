@@ -2,7 +2,7 @@
 _Developed by: Kristina Koneva (student index number: 201513)_
 
 ## Overview
-Guess or Pass is an iOS mobile application developed in [Swift](https://developer.apple.com/swift/) as the programming language of choice and [SwiftUI](https://developer.apple.com/xcode/swiftui/) as a suitable modern UI framework.
+Guess or Pass is a native iOS mobile application developed in [Swift](https://developer.apple.com/swift/) as the programming language of choice and [SwiftUI](https://developer.apple.com/xcode/swiftui/) as a suitable modern UI framework.
 
 It's a multiplayer game where one lucky individual takes on the role of the guesser, while others act as the clue-givers, providing hints to help the guesser identify the correct word. The objective is to guess as many words as possible from the selected category in the duration of one minute. Users can choose one of the following categories: animals, food, sports, technology, music and nature. There are several options about navigating throughout the game play - users can use button clicks, swipe gestures or phone tilts to guess or pass a certain word. Additionally, users can set reminders for their game nights or similar events and they will receive a notification with the time and place.
 
