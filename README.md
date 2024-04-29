@@ -55,10 +55,10 @@ On the top right of the screen, there is a settings icon button whcih navigates 
 _TODO: Add screenshots._
 
 ### Game Screen
-Description and screenshot to be added.
+_TODO: Add description and screenshots._
 
 ### Settings Screen
-Description and screenshot to be added.
+_TODO: Add description and screenshots._
 
 - Change name
 - Change avatar
