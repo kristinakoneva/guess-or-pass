@@ -12,9 +12,6 @@ struct WelcomeScreen: View {
     @ObservedObject var viewModel: WelcomeViewModel = DependencyContainer.shared.resolve(WelcomeViewModel.self)!
     
     @State private var selectedImage: UIImage?
-    @State private var shouldOpenImagePicker = false
-    @State private var imagePickerSourceType: UIImagePickerController.SourceType = .photoLibrary
-    @State private var isAlertPresented = false
     
     var body: some View {
        ScrollView {
@@ -49,8 +46,7 @@ struct WelcomeScreen: View {
                 
                 HStack {
                     Button(action: {
-                        self.imagePickerSourceType = .photoLibrary
-                        self.shouldOpenImagePicker = true
+                        viewModel.openPhotoGallery()
                     }) {
                         Text("Choose from gallery 🖼️")
                             .foregroundColor(.white)
@@ -64,8 +60,7 @@ struct WelcomeScreen: View {
                     Spacer()
                     
                     Button(action: {
-                        self.imagePickerSourceType = .camera
-                        self.shouldOpenImagePicker = true
+                        viewModel.openCamera()
                     }) {
                         Text("Take photo now 📸")
                             .foregroundColor(.white)
@@ -80,7 +75,7 @@ struct WelcomeScreen: View {
                 
                 Button("Let's play 🥳") {
                     if viewModel.nameInput.isEmpty || selectedImage == nil {
-                        isAlertPresented = true
+                        viewModel.isAlertPresented = true
                     } else {
                         saveImageToLocalStorage(image: selectedImage!)
                         viewModel.saveUserName()
@@ -100,13 +95,16 @@ struct WelcomeScreen: View {
                     router.navigate(to: .home)
                 }
             }
-            .sheet(isPresented: $shouldOpenImagePicker) {
-                ImagePicker(selectedImage: self.$selectedImage, sourceType: imagePickerSourceType)
-            }.onAppear {
-                shouldOpenImagePicker = false
+            .sheet(isPresented: $viewModel.shouldOpenImagePicker) {
+                ImagePicker(selectedImage: self.$selectedImage, sourceType: viewModel.imagePickerSourceType)
             }
-            .alert(isPresented: $isAlertPresented) {
-                Alert(title: Text("Please provide input"), message: Text("Name and/or avatar selection are/is missing."), dismissButton: .default(Text("OK")))
+            .alert(isPresented: $viewModel.isAlertPresented) {
+                switch viewModel.alertDailog {
+                case .cameraPermissionDenied:
+                    Alert(title: Text("Camera permission denied"), message: Text("If you want to take a photo with your camera and set it as your avatar, you will have to grant the camera permission in the settings."), dismissButton: .default(Text("OK"), action: { viewModel.closeAlertDialog() }))
+                default:
+                    Alert(title: Text("Please provide input"), message: Text("Name and/or avatar selection are/is missing."), dismissButton: .default(Text("OK"), action: { viewModel.closeAlertDialog() }))
+                }
             }
         }
     }

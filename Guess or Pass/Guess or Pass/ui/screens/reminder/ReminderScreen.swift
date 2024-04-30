@@ -67,7 +67,7 @@ struct ReminderScreen: View {
                         router.navigateBack()
                     }))
                 default:
-                    return Alert(title: Text("Notifications are disabled 🔕"), message: Text("Please enable notifications in the app settings if you want to recieve a reminder for your \"\(viewModel.eventNameInput)\" event."), dismissButton: .default(Text("OK"),action: {
+                    return Alert(title: Text("Notifications are disabled 🔕"), message: Text("Please enable notifications in the app settings if you want to recieve a reminder for your \"\(viewModel.eventNameInput)\" event."), dismissButton: .default(Text("OK"), action: {
                         viewModel.closeAlertDialog()
                     }))
                 }
