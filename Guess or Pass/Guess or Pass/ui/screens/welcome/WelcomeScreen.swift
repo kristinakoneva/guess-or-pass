@@ -90,11 +90,6 @@ struct WelcomeScreen: View {
                 Spacer()
             }
             .padding()
-            .onAppear {
-                if !viewModel.isNewUser {
-                    router.navigate(to: .home)
-                }
-            }
             .sheet(isPresented: $viewModel.shouldOpenImagePicker) {
                 ImagePicker(selectedImage: self.$selectedImage, sourceType: viewModel.imagePickerSourceType)
             }
@@ -104,6 +99,11 @@ struct WelcomeScreen: View {
                     Alert(title: Text("Camera permission denied"), message: Text("If you want to take a photo with your camera and set it as your avatar, you will have to grant the camera permission in the settings."), dismissButton: .default(Text("OK"), action: { viewModel.closeAlertDialog() }))
                 default:
                     Alert(title: Text("Please provide input"), message: Text("Name and/or avatar selection are/is missing."), dismissButton: .default(Text("OK"), action: { viewModel.closeAlertDialog() }))
+                }
+            }
+            .onAppear {
+                if !viewModel.isNewUser {
+                    router.navigate(to: .home)
                 }
             }
         }

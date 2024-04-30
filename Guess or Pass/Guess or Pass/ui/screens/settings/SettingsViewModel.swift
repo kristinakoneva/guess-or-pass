@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import AVFoundation
 
 class SettingsViewModel: ObservableObject {
     private let userRepository: UserRepository
@@ -21,6 +22,7 @@ class SettingsViewModel: ObservableObject {
     @Published private(set) var settingsSheet: SettingsSheet? = nil
     @Published var isActionSheetPresented = false
     @Published var isSheetPresented = false
+    @Published var isCameraPermissionDeniedAlertPresented: Bool = false
     
     let settingsItems: [SettingsItem] = [
         .changeName,
@@ -83,10 +85,31 @@ class SettingsViewModel: ObservableObject {
     func openImagePicker(sourceType: UIImagePickerController.SourceType) {
         if sourceType == .photoLibrary {
             settingsSheet = .galleryImagePicker
+            isSheetPresented = true
         } else {
-            settingsSheet = .cameraImagePicker
+            let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
+            switch cameraAuthorizationStatus {
+            case .authorized:
+                settingsSheet = .cameraImagePicker
+                isSheetPresented = true
+            case .notDetermined:
+                AVCaptureDevice.requestAccess(for: .video) { granted in
+                    DispatchQueue.main.async {
+                        if granted {
+                            self.settingsSheet = .cameraImagePicker
+                            self.isSheetPresented = true
+                        } else {
+                            self.isCameraPermissionDeniedAlertPresented = true
+                        }
+                    }
+                }
+            case .denied, .restricted:
+                self.isCameraPermissionDeniedAlertPresented = true
+            @unknown default:
+                break
+            }
         }
-        isSheetPresented = true
+        
     }
     
     func closeSheet() {
@@ -101,5 +124,9 @@ class SettingsViewModel: ObservableObject {
     
     func clearNavigationEvent() {
         self.navigateToSetReminder = false
+    }
+    
+    func closeAlertDialog() {
+        self.isCameraPermissionDeniedAlertPresented = false
     }
 }

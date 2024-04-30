@@ -78,6 +78,9 @@ struct SettingsScreen: View {
                 showGameNavTypeActionSheet()
             }
         })
+        .alert(isPresented: $viewModel.isCameraPermissionDeniedAlertPresented) {
+            Alert(title: Text("Camera permission denied"), message: Text("If you want to take a photo with your camera and set it as your avatar, you will have to grant the camera permission in the settings."), dismissButton: .default(Text("OK"), action: { viewModel.closeAlertDialog() }))
+        }
         .onReceive(viewModel.$navigateToSetReminder) { navigateToSetReminder in
             if navigateToSetReminder {
                 viewModel.clearNavigationEvent()
