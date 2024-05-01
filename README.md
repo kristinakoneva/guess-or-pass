@@ -41,30 +41,100 @@ The [Alamofire](https://github.com/Alamofire/Alamofire) HTTP networking library 
 ### Welcome Screen
 The first screen users see when they open the app for the first time is the welcome screen. They are required to enter their name/nickname and choose their avatar. They can pick the image for their avatar either form their photo gallery or instantly take the photo by opening their camera. Once they have provided both things and have clicked on the "Let's play 🥳" button, they will be navigated to the game screen and their choices (name and avatar) will be saved locally in the `UserDefaults`.
 
-_TODO: Add screenshots._
+<br/>
+<br/>
+
+<img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/aa196ff4-aeaa-43a5-8ebc-18eee8ea36e7" width=30% height=30%/>
+<img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/a4b357e0-9e09-4484-a897-b07b3a550f80" width=30% height=30%/>
+
+<br/>
+<br/>
+
+For accessing the gallery, the app doesn't need to ask for permissions because it only needs private access to the user's gallery (the app can access only the images the user selects), however, for the camera, the app has to request the permission in case the user wants to take a photo which will be their avatar.
+
+<br/>
+<br/>
+
+<img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/33e332cf-d182-4319-a6a4-0c34188d76d3" width=30% height=30%/>
+<img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/4c2d5000-3596-4e5a-a3f6-e7b2d87f2bd4" width=30% height=30%/>
+<img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/14920b3c-d7ad-440c-a324-e57845b96ba2" width=30% height=30%/>
+
 
 ### Home Screen
 On the home screen, users can see their name, avatar and best score. The best score represents how many correct guesses they have made in one minute and the initial for this score is 0 words/min. 
 
 Below the user information, the avaialble word categories are listed. Once the user has chosen their category of choice, they can proceed with playing the game by clicking the "Play" button.
-
-If users click on the "Play" button, but haven't chosen a category yet, an alret dialog will be shown.
-
-On the top right of the screen, there is a settings icon button whcih navigates to the settings screen when clicked.
-
-_TODO: Add screenshots._
+<br/>
+<br/>
+<img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/608922fa-623d-450f-b5ea-ead24f359de0" width=30% height=30%/>
+<img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/e2c2e860-8ec0-4d09-baa0-93978bfc1566" width=30% height=30%/>
+<br/>
+<br/>
+If users click on the "Play" button, but haven't chosen a category yet, an alert dialog will be shown.
+<br/>
+<br/>
+<img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/4881d918-98b5-49a4-b854-35de03993db1" width=30% height=30%/>
+<img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/902f1c4c-a09e-4244-9767-66389854cd8f" width=30% height=30%/>
+<br/>
+<br/>
+On the top right of the screen, there is a settings icon button which navigates to the settings screen when clicked.
 
 ### Game Screen
-_TODO: Add description and screenshots._
+_TODO: Add description._
+<br/>
+<br/>
+<img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/19e31f1b-7893-4c64-826e-966a09de3ac3" width=50% height=50%/>
+<br/>
+<img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/5b751579-acd2-4a32-b44b-e2322eade80f" width=50% height=50%/>
+<br/>
+<img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/a56f13af-7eec-4974-8434-4137ff58bbd7" width=50% height=50%/>
 
 ### Settings Screen
-_TODO: Add description and screenshots._
-
+_TODO: Add description._
+<br/>
+<br/>
+<img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/a9592df4-b609-49fb-a839-4ff108ef1028" width=30% height=30%/>
+<br/>
+<br/>
 - Change name
+<br/>
+<br/>
+<img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/7e96f0ef-2150-4332-84bc-f5e30a5e0804" width=30% height=30%/>
+<br/>
+<br/>
 - Change avatar
+<br/>
+<br/>
+<img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/3f85ebb3-2d25-433c-a104-4c8190a29fce" width=30% height=30%/>
+<br/>
+<br/>
 - Read instructions
+<br/>
+<br/>
+ <img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/0dfb85ac-a656-4cc0-8dcc-bd83df3b797a" width=30% height=30%/>
+ <img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/b9b80f6f-9f24-41ff-a153-052846877f2d" width=30% height=30%/>
+<br/>
+<br/>
 - Change game navigation
+<br/>
+<br/>
+<img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/34970e9e-e67b-4307-b34a-99c41606adfc" width=30% height=30%/>
+<br/>
+<br/>
 - Set reminder
+<br/>
+<br/>
+<img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/b9e4431e-e618-4ff7-be3e-a4a5897735e9" width=30% height=30%/>
+<img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/d8cb8865-d1c5-428c-8108-1085fd3cd75f" width=30% height=30%/>
+<br/>
+<br/>
+<img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/3d1690f0-4229-49ab-a233-7b8a133d9719" width=30% height=30%/>
+<img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/d24542a2-0bd5-4b14-88eb-118b1b2a0f1a" width=30% height=30%/>
+<br/>
+<br/>
+<img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/60044d03-9c5a-4212-bf75-0d1cbc087841" width=30% height=30%/>
+<img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/2015b384-e528-4b4f-bac6-9420fd495628" width=30% height=30%/>
+
 
 ## Navigation
 The [`Router`](https://github.com/kristinakoneva/guess-or-pass/blob/main/Guess%20or%20Pass/Guess%20or%20Pass/ui/shared/navigation/Router.swift) class is used for navigating through the different screens (views). It is inspired by the [following article](https://blorenzop.medium.com/routing-navigation-in-swiftui-f1f8ff818937) and contains several useful methods. The `Router` is provided as an environment object and it is available in each view defined in the `Guess_or_PassApp`. 
