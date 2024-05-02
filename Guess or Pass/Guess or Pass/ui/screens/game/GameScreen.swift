@@ -21,6 +21,7 @@ struct GameScreen: View {
     
     let motionManager = DependencyContainer.shared.resolve(CMMotionManager.self)!
     let tiltThreshold: Double = 60
+    let tiltRecoveryAcceptableDiffFromNeutral: Double = 20
     @State private var hasJustTilted: Bool = false
     
     var body: some View {
@@ -125,12 +126,12 @@ struct GameScreen: View {
             }
         }.onAppear {
             guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
-                windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .landscape))
+            windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .landscape))
             viewModel.fetchWords(for: self.wordsCategory)
         }.onDisappear {
             // TODO: Check if it is necessary to add this
-//            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
-//                windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait))
+            //            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+            //                windowScene.requestGeometryUpdate(.iOS(interfaceOrientations: .portrait))
         }
         .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         .background(viewModel.backgroundColor)
@@ -142,46 +143,42 @@ struct GameScreen: View {
             return
         }
         
-        // TODO: Add landscape mode only logic
-        /*
-         Use roll instead of pitch.
-         Roll values: -180 degrees (device on its face), -90 (neutral position), 0 (device on its back)
-         */
+        motionManager.deviceMotionUpdateInterval = 1.0 / 50.0 // 50Hz
         
-        
-        // Portrait mode logic
         func radiansToDegrees(_ radians: Double) -> Double {
             return radians * (180.0 / Double.pi)
         }
         
-        motionManager.deviceMotionUpdateInterval = 1.0 / 50.0 // 50Hz
-        
         motionManager.startDeviceMotionUpdates(to: .main) { motion, error in
             guard let motion = motion else { return }
             
-            let quat = motion.attitude.quaternion
-            let qPitch = CGFloat(radiansToDegrees(atan2(2 * (quat.x * quat.w + quat.y * quat.z), 1 - 2 * quat.x * quat.x - 2 * quat.z * quat.z)))
             
-            // Extract the pitch angle from the motion's attitude
-            let pitchDegrees = radiansToDegrees(motion.attitude.pitch)
-            print("Current pitch: \(pitchDegrees)")
+            // Portrait mode logic
+            /*
+             Roll values: -180 degrees (device on its face), -90 (neutral position), 0 (device on its back)
+             */
             
-            if hasJustTilted && pitchDegrees < 70 {
+            // Extract the roll angle from the motion's attitude
+            let rollDegrees = radiansToDegrees(motion.attitude.roll)
+            print("Current roll: \(rollDegrees)")
+            
+            // Calculate the roll difference from the neutral (-90 degrees) position
+            let rollDifference = abs(rollDegrees + 90)
+            print("Roll difference: \(rollDifference)")
+            
+            if hasJustTilted && rollDifference > tiltRecoveryAcceptableDiffFromNeutral {
                 // Still hasn't returned to the neutral position from a tilt
                 print("Recovering from a tilt")
                 return
             } else {
                 hasJustTilted = false
             }
+
             
-            // Calculate the pitch difference from the neutral position
-            let pitchDifference = abs(pitchDegrees - 90)
-            print("Pitch difference: \(pitchDifference)")
-            
-            if pitchDifference >= self.tiltThreshold {
+            if rollDifference >= self.tiltThreshold {
                 // Tilt detected
                 hasJustTilted = true
-                if qPitch > 90 {
+                if rollDegrees < -90 {
                     print("Device tilted forward")
                     // Perform actions for forward tilt
                     viewModel.guessWord()
@@ -192,6 +189,49 @@ struct GameScreen: View {
                 }
             }
         }
+        
+        
+        // Portrait mode logic
+        //        func radiansToDegrees(_ radians: Double) -> Double {
+        //            return radians * (180.0 / Double.pi)
+        //        }
+        //
+        //        motionManager.startDeviceMotionUpdates(to: .main) { motion, error in
+        //            guard let motion = motion else { return }
+        //
+        //            let quat = motion.attitude.quaternion
+        //            let qPitch = CGFloat(radiansToDegrees(atan2(2 * (quat.x * quat.w + quat.y * quat.z), 1 - 2 * quat.x * quat.x - 2 * quat.z * quat.z)))
+        //
+        //            // Extract the pitch angle from the motion's attitude
+        //            let pitchDegrees = radiansToDegrees(motion.attitude.pitch)
+        //            print("Current pitch: \(pitchDegrees)")
+        //
+        //            if hasJustTilted && pitchDegrees < 70 {
+        //                // Still hasn't returned to the neutral position from a tilt
+        //                print("Recovering from a tilt")
+        //                return
+        //            } else {
+        //                hasJustTilted = false
+        //            }
+        //
+        //            // Calculate the pitch difference from the neutral position
+        //            let pitchDifference = abs(pitchDegrees - 90)
+        //            print("Pitch difference: \(pitchDifference)")
+        //
+        //            if pitchDifference >= self.tiltThreshold {
+        //                // Tilt detected
+        //                hasJustTilted = true
+        //                if qPitch > 90 {
+        //                    print("Device tilted forward")
+        //                    // Perform actions for forward tilt
+        //                    viewModel.guessWord()
+        //                } else {
+        //                    print("Device tilted backward")
+        //                    // Perform actions for backward tilt
+        //                    viewModel.passWord()
+        //                }
+        //            }
+        //        }
     }
 }
 
