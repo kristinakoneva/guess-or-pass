@@ -8,6 +8,8 @@ It's a multiplayer game where one lucky individual takes on the role of the gues
 
 The app supports both portrait and landscape mode (except for the game screen which is locked in landscape mode).
 
+The app was developed for educational and learning purposes and has been inspired by the existing [Heads Up!](https://apps.apple.com/us/app/heads-up/id623592465) app.
+
 ## Architecture
 
 This app is divided into three layers: data, domain and UI layer. The state management is handled following the MVVM pattern.
@@ -63,7 +65,7 @@ For accessing the gallery, the app doesn't need to ask for permissions because i
 ### Home Screen
 On the home screen, users can see their name, avatar and best score. The best score represents how many correct guesses they have made in one minute.
 
-Below the user information, the avaialble word categories are listed. Once the user has chosen their category of choice, they can proceed with playing the game by clicking the "Play" button.
+Below the user information, the available word categories are listed. Once the user has chosen their category of choice, they can proceed with playing the game by clicking the "Play" button.
 <br/>
 <br/>
 <img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/608922fa-623d-450f-b5ea-ead24f359de0" width=30% height=30%/>
@@ -86,7 +88,7 @@ The game screen starts with a 5 second countdown to give the users some time to 
 <img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/19e31f1b-7893-4c64-826e-966a09de3ac3" width=50% height=50%/>
 <br/>
 <br/>
-Afterwards, depending on the previously chosen category, appropriate words will be displayed on the screen. Users can navigate between the words by using the "Pass" and "Guessed" buttons, by using swipe gestures (from left to right swipe indicates a corect guess and a right to left swipe indicates that the user wants to pass the word) or by tilting the phone forwards (correct guess) or backwards (for passing the word). Users can change the navigation type in the settings. By default all of them are enabled and if the users chooses a particular navigation type, the remaining ones will be disabled (and the "Pass" and "Guessed" buttons will be hidden if that's not the chosen type).
+Afterwards, depending on the previously chosen category, appropriate words will be displayed on the screen. Users can navigate between the words by using the "Pass" and "Guessed" buttons, by using swipe gestures (from left to right swipe indicates a correct guess and a right to left swipe indicates that the user wants to pass the word) or by tilting the phone forwards (correct guess) or backwards (for passing the word). Users can change the navigation type in the settings. By default, all of them are enabled and if the users chooses a particular navigation type, the remaining ones will be disabled (and the "Pass" and "Guessed" buttons will be hidden if that's not the chosen type).
 The 1 minute timer is displayed on the top left of this screen and on the top right there is an "End Game" button in case the user wants to finish the game prematurely before the 1 minute timer ends.
 <br/>
 <br/>
@@ -99,30 +101,27 @@ In the end, a dialog with the score is shown. The best score is appropriately up
 <img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/a56f13af-7eec-4974-8434-4137ff58bbd7" width=50% height=50%/>
 
 ### Settings Screen
-The settings screen can be accessed from the home screena and it includes several actions:
+The settings screen can be accessed from the home screen and it includes several actions: Change name, Change avatar, Read instructions, Change game navigation and Set reminder.
 <br/>
 <br/>
 <img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/a9592df4-b609-49fb-a839-4ff108ef1028" width=30% height=30%/>
 <br/>
 <br/>
-- Change name
-<br/>
+#### Change name
 An action sheet opens up giving the user the ability to modify their name/nickname.
 <br/>
 <br/>
 <img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/7e96f0ef-2150-4332-84bc-f5e30a5e0804" width=30% height=30%/>
 <br/>
 <br/>
-- Change avatar
-<br/>
+#### Change avatar
 A bottom sheet opens up with options for the users to modify their avatar.
 <br/>
 <br/>
 <img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/3f85ebb3-2d25-433c-a104-4c8190a29fce" width=30% height=30%/>
 <br/>
 <br/>
-- Read instructions
-<br/>
+#### Read instructions
 An action sheet opens up where the game is explained in detail.
 <br/>
 <br/>
@@ -130,24 +129,22 @@ An action sheet opens up where the game is explained in detail.
  <img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/b9b80f6f-9f24-41ff-a153-052846877f2d" width=30% height=30%/>
 <br/>
 <br/>
-- Change game navigation
-<br/>
+#### Change game navigation
 A bottom sheet opens up allowing the users to choose their preferred game navigation type.
 <br/>
 <br/>
 <img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/34970e9e-e67b-4307-b34a-99c41606adfc" width=30% height=30%/>
 <br/>
 <br/>
-- Set reminder
-<br/>
-When this action is selected from the settings screen and new screen for setting a reminder is shown. Users have to input the event name, date, time and place and a local notification will be scheduled 1 hour before the event date and time. When this screen is entered the app attempts to locate the user (firstly asks for the location permision if it hasn't been requested already) and if it fails locating the usr (the permission is not granted or because of other errors), the default value for the location is "Skopje". For the event date and time, there is validation logic so that dates in the past are not accpeted and dates only 1 hour in the future and further are allowed (since the notification should arrive 1 hour before the event).
+#### Set reminder
+When this action is selected from the settings screen, a new screen for setting a reminder is shown. Users have to input the event name, date, time and place and a local notification will be scheduled 1 hour before the event date and time. When this screen is presented, the app attempts to locate the user (firstly asks for the location permission if it hasn't been requested already) and if it fails locating the user (either because the permission was not granted or because of other errors), the default value for the location is "Skopje". For the event date and time, there is validation logic so that dates in the past are not accepted and dates only 1 hour in the future and further are allowed (since the notification should arrive 1 hour before the event).
 <br/>
 <br/>
 <img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/b9e4431e-e618-4ff7-be3e-a4a5897735e9" width=30% height=30%/>
 <img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/d8cb8865-d1c5-428c-8108-1085fd3cd75f" width=30% height=30%/>
 <br/>
 <br/>
-Users can change the default location by clicking on the "Change location" button which will open an action sheet for selecting the coordinates of their preferred location. When they make a selection, the action sheet is dismissed and the coordinates are turned into a readable location name. Once the user is satisfied with their choices, they can click on the "Set reminder" button to finalize the reminder creation and a local notifcation will be scheduled.
+Users can change the default location by clicking on the "Change location" button which will open an action sheet for selecting the coordinates of their preferred location. When they make a selection, the action sheet is dismissed and the coordinates are turned into a readable location name. Once the user is satisfied with their choices, they can click on the "Set reminder 🔔" button to finalize the reminder creation and a local notifcation will be scheduled.
 <br/>
 <br/>
 <img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/3d1690f0-4229-49ab-a233-7b8a133d9719" width=30% height=30%/>
@@ -159,8 +156,12 @@ If the user is setting a reminder for a first time, they will be asked to give n
 <br/>
 <img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/60044d03-9c5a-4212-bf75-0d1cbc087841" width=30% height=30%/>
 <img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/2015b384-e528-4b4f-bac6-9420fd495628" width=30% height=30%/>
+<br/>
+<br/>
 The following screenshot displays the format of a local notification scheduled through the app:
-
+<br/>
+<br/>
+<img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/d939b437-b4d8-4325-b3c0-4b0f84f4f579" width=30% height=30%/>
 
 ## Navigation
 The [`Router`](https://github.com/kristinakoneva/guess-or-pass/blob/main/Guess%20or%20Pass/Guess%20or%20Pass/ui/shared/navigation/Router.swift) class is used for navigating through the different screens (views). It is inspired by the [following article](https://blorenzop.medium.com/routing-navigation-in-swiftui-f1f8ff818937) and contains several useful methods. The `Router` is provided as an environment object and it is available in each view defined in the `Guess_or_PassApp`. 
@@ -168,7 +169,10 @@ The [`Router`](https://github.com/kristinakoneva/guess-or-pass/blob/main/Guess%2
 ## Useful Utils
 - [`OrientationInfo`](https://github.com/kristinakoneva/guess-or-pass/blob/main/Guess%20or%20Pass/Guess%20or%20Pass/ui/shared/utils/OrientationInfo.swift) - inspired by the following [thread](https://forums.developer.apple.com/forums/thread/126878) and used for obtaining device orientation information. It is primarily used for determining the device orientation when a user opens some action sheet - when the orientation sheet is landscape, a "Close" button is displayed on the action sheet because the user cannot dismiss it otherwise.
 - [`NotificationManager`](https://github.com/kristinakoneva/guess-or-pass/blob/main/Guess%20or%20Pass/Guess%20or%20Pass/ui/shared/utils/NotificationManager.swift) - uses the [`UNUserNotificationCenter`](https://developer.apple.com/documentation/usernotifications/unusernotificationcenter) to check and request notification permissions and schedule local notifications.
- 
-
+- [`LocationPickerForSwiftUI`](https://github.com/alessiorubicini/LocationPickerForSwiftUI) - package dependency which is used on the reminder screen for selecting the event location.
+- [`CLGeocoder`](https://developer.apple.com/documentation/corelocation/clgeocoder) - interface which is used for converting the selected geographic coordinates into a user-friendly location name when setting reminders for events.
+- [`CLLocationManager`](https://developer.apple.com/documentation/corelocation/cllocationmanager) - used for managing location permissions and locating the user on the reminder screen.
+- [`AVCaptureDevice`](https://developer.apple.com/documentation/avfoundation/avcapturedevice) - used for managing the camera permissions when selecting/changing the avatar.
+- [`UIImagePickerController`](https://developer.apple.com/documentation/uikit/uiimagepickercontroller) - a view controller used for opening the photo gallery or the device's camera when choosing the avatar.
 
 
