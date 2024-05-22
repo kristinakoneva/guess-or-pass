@@ -32,7 +32,7 @@ The UI layer is simply what the user sees on the screen. Each screen consists of
 
 ## Dependency Injection
 
-[Swinject](https://github.com/Swinject/Swinject) is used for dependency injection. [`InjectionContainer`](https://github.com/kristinakoneva/guess-or-pass/blob/main/Guess%20or%20Pass/Guess%20or%20Pass/di/InjectionContainer.swift) provides all data sources, repositories, view models and several managers and classes wich are provided as singletons, such as: [`CMMotionManager`](https://developer.apple.com/documentation/coremotion/cmmotionmanager), [`CLLocationManager`](https://developer.apple.com/documentation/corelocation/cllocationmanager), [`CLGeocoder`](https://developer.apple.com/documentation/corelocation/clgeocoder), [`NotificationManager`](https://github.com/kristinakoneva/guess-or-pass/blob/main/Guess%20or%20Pass/Guess%20or%20Pass/ui/shared/utils/NotificationManager.swift).
+[Swinject](https://github.com/Swinject/Swinject) is used for dependency injection. [`InjectionContainer`](https://github.com/kristinakoneva/guess-or-pass/blob/main/Guess%20or%20Pass/Guess%20or%20Pass/di/InjectionContainer.swift) provides all data sources, repositories, view models and several managers and classes which are provided as singletons, such as: [`CMMotionManager`](https://developer.apple.com/documentation/coremotion/cmmotionmanager), [`CLLocationManager`](https://developer.apple.com/documentation/corelocation/cllocationmanager), [`CLGeocoder`](https://developer.apple.com/documentation/corelocation/clgeocoder), [`NotificationManager`](https://github.com/kristinakoneva/guess-or-pass/blob/main/Guess%20or%20Pass/Guess%20or%20Pass/ui/shared/utils/NotificationManager.swift).
 
 ## Networking
 
@@ -144,7 +144,7 @@ When this action is selected from the settings screen, a new screen for setting 
 <img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/d8cb8865-d1c5-428c-8108-1085fd3cd75f" width=30% height=30%/>
 <br/>
 <br/>
-Users can change the default location by clicking on the "Change location" button which will open an action sheet for selecting the coordinates of their preferred location. When they make a selection, the action sheet is dismissed and the coordinates are turned into a readable location name. Once the user is satisfied with their choices, they can click on the "Set reminder 🔔" button to finalize the reminder creation and a local notifcation will be scheduled.
+Users can change the default location by clicking on the "Change location" button which will open an action sheet for selecting the coordinates of their preferred location. When they make a selection, the action sheet is dismissed and the coordinates are turned into a readable location name. Once the user is satisfied with their choices, they can click on the "Set reminder 🔔" button to finalize the reminder creation and a local notification will be scheduled.
 <br/>
 <br/>
 <img src="https://github.com/kristinakoneva/guess-or-pass/assets/83497391/3d1690f0-4229-49ab-a233-7b8a133d9719" width=30% height=30%/>
