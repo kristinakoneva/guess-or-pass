@@ -153,7 +153,7 @@ struct GameScreen: View {
             guard let motion = motion else { return }
             
             
-            // Portrait mode logic
+            // Landscape mode logic
             /*
              Roll values: -180 degrees (device on its face), -90 (neutral position), 0 (device on its back)
              */
